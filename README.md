@@ -1,4 +1,4 @@
-# blog-final-project
+# Blog for devHouse school 
 
 This is the final project for DevHouse school I am going through. The project is dedicated to creating not a big blog using Vue js.
 
