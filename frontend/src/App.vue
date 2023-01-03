@@ -1,37 +1,31 @@
 <template>
-  <div
-    id="app"
-    class="red"
-  >
-    <h1>Hello from vue !!!!!!!</h1>
-
-    <input
-      type="text"
-      value="Heloo"
-      placeholder="Type anything here...."
-    />
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+}
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-nav {
-  padding: 30px;
+input,
+button {
+  cursor: pointer;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+body {
+  background-color: #090a1a;
+  color: rgb(87, 249, 255);
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
 }
 </style>
