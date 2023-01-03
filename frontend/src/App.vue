@@ -4,7 +4,7 @@
     class="red"
   >
     <h1>Hello from vue !!!!!!!</h1>
-
+    // TODO!! Delete prettier recommened in eslintrc
     <input
       type="text"
       value="Heloo"
