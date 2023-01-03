@@ -1,17 +1,11 @@
 <template>
   <div>
     <form
-      @submit.prevent="onRegister"
+      @submit.prevent="onLogin"
       class="register-form"
     >
       <input
-        v-model="username"
-        type="text"
-        placeholder="name...."
-      />
-
-      <input
-        v-model="email"
+        v-model="identifier"
         type="text"
         placeholder="email...."
       />
@@ -26,7 +20,7 @@
         class="register-button"
         type="submit"
       >
-        Register
+        Login
       </button>
     </form>
   </div>
@@ -36,27 +30,25 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'RegisterView',
+  name: 'LoginView',
 
   data() {
     return {
-      username: '',
-      email: '',
+      identifier: '',
       password: '',
     }
   },
 
   methods: {
-    ...mapActions(['register']),
+    ...mapActions(['login']),
 
-    async onRegister() {
-      const registrationData = {
-        username: this.username,
-        email: this.email,
+    async onLogin() {
+      const loginData = {
+        identifier: this.identifier,
         password: this.password,
       }
 
-      this.register(registrationData)
+      await this.login(loginData)
 
       this.$router.push({ name: 'homeView' })
     },

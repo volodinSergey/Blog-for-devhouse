@@ -12,12 +12,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'HomeView',
 
   methods: {
+    ...mapActions(['logout']),
+
     onLogout() {
-      this.$router.push({ name: 'registerView' })
+      this.logout()
+      this.$router.push({ name: 'loginView' })
     },
   },
 }

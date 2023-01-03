@@ -4,20 +4,20 @@ const state = {
     isLoading: false,
     user: null,
     token: null,
-    role: null
+    // role: null
 }
 
 const getters = {
     isAuth: state => Boolean(state.token),
     ownerId: state => state.user.id,
-    userRole: state => state.role
+    // userRole: state => state.role
 }
 
 const mutations = {
     setIsLoading: (state, loadingPayload) => state.isLoading = loadingPayload,
     setUser: (state, userPayload) => state.user = userPayload,
     setToken: (state, tokenPayload) => state.token = tokenPayload,
-    setRole: (state, rolePayload) => state.role = rolePayload,
+    // setRole: (state, rolePayload) => state.role = rolePayload,
 }
 
 const actions = {
@@ -49,7 +49,7 @@ const actions = {
             const res = await AuthService.login(loginData)
             // const meRes = await AuthService.getMe()
 
-            console.warn(warn)
+            // console.warn(warn)
             // const role = meRes.datarole.name
 
             const user = res.data.user
@@ -60,7 +60,7 @@ const actions = {
             }
 
             commit('setUser', user)
-            commit('setRole', role)
+            // commit('setRole', role)
             commit('setToken', res.data.jwt)
             commit('setIsLoading', false)
         } catch (err) {
