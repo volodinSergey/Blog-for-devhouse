@@ -1,21 +1,46 @@
 <template>
   <div class="home">
-    <img
-      alt="Vue logo"
-      src="../assets/logo.png"
-    />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Welcome to the site</h1>
+
+    <button
+      @click="onLogout"
+      class="logout-button"
+    >
+      Logout
+    </button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld,
+
+  methods: {
+    onLogout() {
+      this.$router.push({ name: 'registerView' })
+    },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.home {
+  font-size: 30px;
+  font-family: sans-serif;
+  color: #fff;
+}
+
+.logout-button {
+  font-size: 25px;
+  min-width: 100px;
+  background-color: #0016d9;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: 0.2s;
+  color: #fff;
+}
+
+.logout-button:hover {
+  opacity: 0.8;
+}
+</style>
