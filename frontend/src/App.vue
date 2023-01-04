@@ -1,12 +1,20 @@
 <template>
   <div id="app">
+    <TheHeader />
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import TheHeader from './components/TheHeader.vue'
+
 export default {
   name: 'App',
+
+  components: {
+    TheHeader,
+  },
 }
 </script>
 
@@ -21,11 +29,20 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
 body {
   background-color: #090a1a;
   color: rgb(87, 249, 255);
-  display: grid;
+  /*display: grid;
   min-height: 100vh;
-  place-items: center;
+  place-items: center; */
 }
 </style>
