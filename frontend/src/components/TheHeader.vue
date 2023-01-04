@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <span>Logotype</span>
+    <TheLogo />
 
     <nav class="navigation">
       <ul class="navigation__list navigation-list">
@@ -31,8 +31,14 @@
 </template>
 
 <script>
+import TheLogo from './TheLogo.vue'
+
 export default {
   name: 'TheHeader',
+
+  components: {
+    TheLogo,
+  },
 }
 </script>
 
