@@ -1,13 +1,17 @@
 <template>
   <ul class="posts-list">
-    <PostsListItem />
+    <PostsListItem
+      v-for="post in posts"
+      :key="post.id"
+      :post="post"
+    />
   </ul>
 </template>
 
 <script>
-import PostsListItem from './PostsListItem.vue'
+import { mapActions, mapGetters } from 'vuex'
 
-import PostsService from '@/services/postsService/Posts.service'
+import PostsListItem from './PostsListItem.vue'
 
 export default {
   name: 'PostsList',
@@ -16,14 +20,16 @@ export default {
     PostsListItem,
   },
 
-  data() {
-    return {
-      posts: [],
-    }
+  created() {
+    this.getAllPosts()
   },
 
-  created() {
-    PostsService.getAll()
+  computed: {
+    ...mapGetters(['posts']),
+  },
+
+  methods: {
+    ...mapActions(['getAllPosts']),
   },
 }
 </script>

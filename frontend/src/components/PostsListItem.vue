@@ -4,24 +4,23 @@
       <div class="post-item__author-info author-info">
         <img
           class="author-info__avatar"
-          src="@/assets/Куплинов.webp"
+          :src="fullAvatarUrl"
           alt="author avatar"
         />
-        <span class="author-info-name">Дмитрий Куплинов</span>
+        <span class="author-info-name">{{ post.author }}</span>
       </div>
 
-      <h2 class="post-item__title">Мой первый пост за этот год</h2>
+      <h2 class="post-item__title">{{ post.title }}</h2>
 
       <p class="post-item__body">
-        Меня зовут Дмитрий, я собираюсь разъебать ютуб в этом году , для этого мне нужно много подписоты, ставь лике,
-        субскрибе и типо это самое типо
+        {{ post.body }}
       </p>
     </div>
 
     <div class="post-item__right">
       <img
         class="post-item__image"
-        src="@/assets/Куплинов.webp"
+        :src="fullPostImageUrl"
         alt="post image"
       />
     </div>
@@ -31,6 +30,27 @@
 <script>
 export default {
   name: 'PostsListItem',
+
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  computed: {
+    fullPostImageUrl() {
+      const baseUrl = 'http://localhost:1337'
+
+      return `${baseUrl}${this.post.image}`
+    },
+
+    fullAvatarUrl() {
+      const baseUrl = 'http://localhost:1337'
+
+      return `${baseUrl}${this.post.authorAvatar}`
+    },
+  },
 }
 </script>
 
