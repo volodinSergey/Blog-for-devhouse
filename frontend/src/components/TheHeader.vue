@@ -1,37 +1,57 @@
 <template>
   <header class="header">
-    <TheLogo />
+    <div class="container">
+      <div class="header__box">
+        <TheLogo />
 
-    <nav class="navigation">
-      <ul class="navigation__list navigation-list">
-        <li class="navigation-list__item">
-          <router-link
-            class="navigation-list__link"
-            :to="{}"
-            >Posts
-          </router-link>
-        </li>
-        <li class="navigation-list__item">
-          <router-link
-            class="navigation-list__link"
-            :to="{}"
-            >Settings
-          </router-link>
-        </li>
-        <li class="navigation-list__item">
-          <router-link
-            class="navigation-list__link"
-            :to="{}"
-            >Add post
-          </router-link>
-        </li>
-      </ul>
-    </nav>
+        <nav
+          v-if="isAuth"
+          class="navigation"
+        >
+          <ul class="navigation__list navigation-list">
+            <li class="navigation-list__item">
+              <router-link
+                class="navigation-list__link"
+                :to="{}"
+                >Posts
+              </router-link>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="auth-buttons">
+          <button
+            v-if="isAuth"
+            class="auth-buttons__button"
+            :to="{ name: 'loginView' }"
+            @click="onLogout"
+          >
+            Logout
+          </button>
+
+          <template v-else>
+            <router-link
+              class="auth-buttons__button"
+              :to="{ name: 'registerView' }"
+              >Register
+            </router-link>
+
+            <router-link
+              class="auth-buttons__button"
+              :to="{ name: 'loginView' }"
+              >Login
+            </router-link>
+          </template>
+        </div>
+      </div>
+    </div>
   </header>
 </template>
 
 <script>
 import TheLogo from './TheLogo.vue'
+
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TheHeader',
@@ -39,16 +59,36 @@ export default {
   components: {
     TheLogo,
   },
+
+  computed: {
+    ...mapGetters({
+      isAuth: 'isAuth',
+    }),
+  },
+
+  methods: {
+    ...mapActions(['logout']),
+
+    onLogout() {
+      this.logout()
+
+      this.$router.push({ name: 'loginView' })
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .header {
-  display: flex;
-  justify-content: space-between;
   background-color: rgb(2 28 71 / 64%);
   padding: 15px;
   box-shadow: 0px 6px 2px 0px rgba(34, 60, 80, 0.2);
+
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .navigation-list {
@@ -56,6 +96,29 @@ export default {
   gap: 20px;
 }
 .navigation-list__link {
+  font-family: sans-serif;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.container {
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 20px;
+
+  &__button {
+    font-family: sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+  }
+}
+
+.logout {
+  background-color: blue;
   color: #fff;
 }
 </style>

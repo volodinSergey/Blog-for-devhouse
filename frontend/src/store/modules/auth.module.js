@@ -8,8 +8,8 @@ const state = {
 }
 
 const getters = {
-    isAuth: state => Boolean(state.token),
-    ownerId: state => state.user.id,
+    isAuth: state => Boolean(state.user),
+    // ownerId: state => state.user.id,
     // userRole: state => state.role
 }
 

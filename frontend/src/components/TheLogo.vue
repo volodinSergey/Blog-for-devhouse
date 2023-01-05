@@ -16,12 +16,13 @@ export default {
 
 <style lang="scss" scoped>
 $logo-color: #fff;
+$font-size: 1.3rem;
 .logo-box {
   display: inline-block;
 
   &__logo {
     font-family: sans-serif;
-    font-size: 1.5rem;
+    font-size: $font-size;
     color: $logo-color;
   }
 }
