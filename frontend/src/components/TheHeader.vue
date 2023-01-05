@@ -19,37 +19,15 @@
           </ul>
         </nav>
 
-        <div class="auth-buttons">
-          <button
-            v-if="isAuth"
-            class="auth-buttons__button"
-            :to="{ name: 'loginView' }"
-            @click="onLogout"
-          >
-            Logout
-          </button>
-
-          <template v-else>
-            <router-link
-              class="auth-buttons__button"
-              :to="{ name: 'registerView' }"
-              >Register
-            </router-link>
-
-            <router-link
-              class="auth-buttons__button"
-              :to="{ name: 'loginView' }"
-              >Login
-            </router-link>
-          </template>
-        </div>
+        <AuthButtonsGroup />
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import TheLogo from './TheLogo.vue'
+import TheLogo from '@/components/TheLogo.vue'
+import AuthButtonsGroup from '@/components/AuthButtonsGroup.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -58,6 +36,7 @@ export default {
 
   components: {
     TheLogo,
+    AuthButtonsGroup,
   },
 
   computed: {
@@ -104,21 +83,5 @@ export default {
 .container {
   max-width: 1480px;
   margin: 0 auto;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-
-  &__button {
-    font-family: sans-serif;
-    font-size: 1.3rem;
-    color: #fff;
-  }
-}
-
-.logout {
-  background-color: blue;
-  color: #fff;
 }
 </style>
