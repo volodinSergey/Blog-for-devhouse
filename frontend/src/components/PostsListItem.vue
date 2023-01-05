@@ -1,6 +1,12 @@
 <template>
   <li class="post-item">
     <h1>Текст поста</h1>
+    <h1>Текст поста</h1>
+    <h1>Текст поста</h1>
+    <h1>Текст поста</h1>
+    <h1>Текст поста</h1>
+    <h1>Текст поста</h1>
+    <h1>Текст поста</h1>
   </li>
 </template>
 
@@ -12,7 +18,7 @@ export default {
 
 <style lang="scss" scoped>
 .post-item {
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #23243e;
   background-color: #16182d;
   border-radius: 0.9rem;
