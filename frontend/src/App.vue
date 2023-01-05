@@ -46,6 +46,10 @@ a {
   text-decoration: none;
 }
 
+img {
+  object-fit: cover;
+}
+
 ul {
   list-style: none;
 }

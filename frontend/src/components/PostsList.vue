@@ -1,6 +1,8 @@
 <template>
   <ul class="posts-list">
     <PostsListItem />
+    <PostsListItem />
+    <PostsListItem />
   </ul>
 </template>
 
@@ -20,7 +22,7 @@ export default {
 .posts-list {
   display: grid;
   gap: 1.5rem;
-  flex-basis: 50%;
+  flex-basis: 40%;
   overflow-y: auto;
   max-height: 90vh;
   border-radius: 0.9rem;

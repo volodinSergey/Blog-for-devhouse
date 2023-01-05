@@ -50,7 +50,7 @@ export default {
 
       await this.login(loginData)
 
-      this.$router.push({ name: 'homeView' })
+      this.$router.push({ name: 'postsView' })
     },
   },
 }
