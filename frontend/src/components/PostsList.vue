@@ -7,11 +7,23 @@
 <script>
 import PostsListItem from './PostsListItem.vue'
 
+import PostsService from '@/services/postsService/Posts.service'
+
 export default {
   name: 'PostsList',
 
   components: {
     PostsListItem,
+  },
+
+  data() {
+    return {
+      posts: [],
+    }
+  },
+
+  created() {
+    PostsService.getAll()
   },
 }
 </script>
