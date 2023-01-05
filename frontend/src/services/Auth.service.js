@@ -15,7 +15,7 @@ const AuthService = {
 
     getMe: async () => {
         const meResponse = await Axios.get('api/users/me?populate=*')
-        console.log(meResponse)
+
         return meResponse
     }
 }

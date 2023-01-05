@@ -12,7 +12,7 @@
             <li class="navigation-list__item">
               <router-link
                 class="navigation-list__link"
-                :to="{}"
+                :to="{ name: 'postsView' }"
                 >Posts
               </router-link>
             </li>
