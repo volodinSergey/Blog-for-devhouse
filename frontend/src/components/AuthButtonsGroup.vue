@@ -1,26 +1,17 @@
 <template>
   <div class="auth-buttons">
-    <button
+    <BaseButton
       v-if="isAuth"
-      class="auth-buttons__button"
       :to="{ name: 'loginView' }"
-      @click="onLogout"
+      @click="onClickLogoutButton"
     >
       Logout
-    </button>
+    </BaseButton>
 
     <template v-else>
-      <router-link
-        class="auth-buttons__button"
-        :to="{ name: 'registerView' }"
-        >Register
-      </router-link>
+      <BaseButton @click="onClickRegisterButton"> Register </BaseButton>
 
-      <router-link
-        class="auth-buttons__button"
-        :to="{ name: 'loginView' }"
-        >Login
-      </router-link>
+      <BaseButton @click="onCLickLoginButton"> Login </BaseButton>
     </template>
   </div>
 </template>
@@ -28,8 +19,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+import BaseButton from '@/components/BaseButton.vue'
+
 export default {
   name: 'AuthButtonsGroup',
+
+  components: {
+    BaseButton,
+  },
 
   computed: {
     ...mapGetters({
@@ -40,9 +37,17 @@ export default {
   methods: {
     ...mapActions(['logout']),
 
-    onLogout() {
+    onClickLogoutButton() {
       this.logout()
 
+      this.$router.push({ name: 'loginView' })
+    },
+
+    onClickRegisterButton() {
+      this.$router.push({ name: 'registerView' })
+    },
+
+    onClickLoginButton() {
       this.$router.push({ name: 'loginView' })
     },
   },
