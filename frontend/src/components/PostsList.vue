@@ -1,8 +1,6 @@
 <template>
   <ul class="posts-list">
     <PostsListItem />
-    <PostsListItem />
-    <PostsListItem />
   </ul>
 </template>
 
