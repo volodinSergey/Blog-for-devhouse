@@ -2,7 +2,6 @@
   <div class="auth-buttons">
     <BaseButton
       v-if="isAuth"
-      :to="{ name: 'loginView' }"
       @click="onClickLogoutButton"
     >
       Logout
@@ -11,7 +10,7 @@
     <template v-else>
       <BaseButton @click="onClickRegisterButton"> Register </BaseButton>
 
-      <BaseButton @click="onCLickLoginButton"> Login </BaseButton>
+      <BaseButton @click="onClickLoginButton"> Login </BaseButton>
     </template>
   </div>
 </template>
@@ -58,16 +57,5 @@ export default {
 .auth-buttons {
   display: flex;
   gap: 20px;
-
-  &__button {
-    font-family: sans-serif;
-    font-size: 1.3rem;
-    color: #fff;
-  }
-}
-
-.logout {
-  background-color: blue;
-  color: #fff;
 }
 </style>
