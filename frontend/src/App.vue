@@ -53,5 +53,7 @@ ul {
 body {
   background-color: #090a1a;
   color: rgb(87, 249, 255);
+  font-family: sans-serif;
+  color: #fff;
 }
 </style>

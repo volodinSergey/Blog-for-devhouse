@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import RegisterView from '@/views/RegisterView'
 import LoginView from '@/views/LoginView'
 import HomeView from '@/views/HomeView'
+import PostsView from '@/views/PostsView.vue'
 
 
 Vue.use(VueRouter)
@@ -25,6 +26,12 @@ const routes = [
     path: '/home',
     name: 'homeView',
     component: HomeView
+  },
+
+  {
+    path: '/posts',
+    name: 'postsView',
+    component: PostsView
   }
 ]
 
