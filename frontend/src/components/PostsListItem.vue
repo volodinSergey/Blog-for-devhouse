@@ -24,12 +24,20 @@
         alt="post image"
       />
     </div>
+
+    <PostLike :likesCount="0" />
   </li>
 </template>
 
 <script>
+import PostLike from './PostLike.vue'
+
 export default {
   name: 'PostsListItem',
+
+  components: {
+    PostLike,
+  },
 
   props: {
     post: {
@@ -72,6 +80,7 @@ export default {
 
   &__image {
     width: 100%;
+    margin-bottom: 15px;
   }
 }
 
