@@ -3,10 +3,11 @@ export const allPostsAdapter = data => {
         id: post.id,
         title: post.attributes.title,
         body: post.attributes.body,
+        likes: post.attributes.likes || 0,
+        image: post.attributes?.image?.data?.attributes?.url || null,
         author: post.attributes.author.data.attributes.username,
         authorId: post.attributes.author.data.id,
         authorAvatar: post.attributes.author.data.attributes?.avatar?.data?.attributes?.url,
-        image: post.attributes?.image?.data?.attributes?.url || null
     }))
 
 

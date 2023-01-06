@@ -25,7 +25,10 @@
       />
     </div>
 
-    <PostLike :likesCount="0" />
+    <PostLike
+      :postId="post.id"
+      :likesCount="post.likes"
+    />
   </li>
 </template>
 

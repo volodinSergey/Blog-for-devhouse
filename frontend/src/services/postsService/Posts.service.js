@@ -11,6 +11,9 @@ const PostsService = {
         return adaptedPosts
     },
 
+    like: async (id) => await Axios.put(`/api/posts/${id}`, {})
+
+
     // getOne: async (id) => {
     //     const { data } = await Axios.get(`/api/posts/${id}?populate=*`)
 

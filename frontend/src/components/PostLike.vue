@@ -1,8 +1,12 @@
 <template>
-  <button class="like-button">
+  <button
+    class="like-button"
+    @click="onClickLike"
+  >
     <div class="like-button__inner">
       <svg
         class="like-button__icon"
+        :class="{ 'like-button__icon--liked': liked }"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -36,10 +40,27 @@ export default {
       required: true,
     },
 
-    data() {
-      return {
-        liked: false,
+    postId: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      liked: false,
+    }
+  },
+
+  methods: {
+    onClickLike() {
+      if (this.liked) {
+        this.liked = false
+
+        return
       }
+
+      this.liked = true
     },
   },
 }
@@ -56,6 +77,7 @@ export default {
   padding: 7px 10px;
   border-radius: 21px;
   transition: 0.2s;
+  user-select: none;
 
   @media (any-hover: hover) {
     &:hover {
@@ -74,6 +96,11 @@ export default {
     stroke: #fff;
     width: 1.3rem;
     aspect-ratio: 1;
+    transition: 0.2s;
+
+    &--liked {
+      fill: red;
+    }
   }
 
   &__likes-counter {
