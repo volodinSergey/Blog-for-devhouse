@@ -8,8 +8,6 @@ const PostsService = {
 
         const adaptedPosts = allPostsAdapter(data)
 
-        console.log(adaptedPosts)
-
         return adaptedPosts
     },
 

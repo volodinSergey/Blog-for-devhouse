@@ -58,7 +58,7 @@ export default {
 
       this.register(registrationData)
 
-      this.$router.push({ name: 'homeView' })
+      this.$router.push({ name: 'postsView' })
     },
   },
 }
