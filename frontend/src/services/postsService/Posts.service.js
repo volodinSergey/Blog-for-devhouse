@@ -11,21 +11,6 @@ const PostsService = {
         return adaptedPosts
     },
 
-    like: async (id, likeStatus) => {
-        const data = {
-            data: {
-                liked: likeStatus
-            }
-        }
-
-        const postWithUpdatedLike = await Axios.put(`/api/posts/${id}`, data)
-        const isLiked = postWithUpdatedLike.data.liked
-        console.warn(isLiked)
-        return isLiked
-    },
-
-
-
     getOne: async (id) => {
         const { data } = await Axios.get(`/api/posts/${id}?populate=*`)
 

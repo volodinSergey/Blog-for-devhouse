@@ -1,12 +1,12 @@
 <template>
   <button
     class="like-button"
-    @click="onClickLike"
+    @click="onClick"
   >
     <div class="like-button__inner">
       <svg
         class="like-button__icon"
-        :class="{ 'like-button__icon--liked': postLiked }"
+        :class="{ 'like-button__icon--liked': liked }"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,51 +24,48 @@
           />
         </g>
       </svg>
-      <span class="like-button__likes-counter">{{ likesCount }}</span>
+      <span class="like-button__likes-counter">{{ likes }}</span>
     </div>
   </button>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import LikesService from '@/services/likesService/Likes.service'
 
 export default {
   name: 'PostLikeButton',
 
   props: {
-    likesCount: {
-      type: Number,
-      required: true,
-    },
-
     postId: {
       type: Number,
       required: true,
     },
   },
 
+  async created() {
+    const { likesCount, likeStatus } = await LikesService.getLikes(this.postId)
+
+    this.liked = likeStatus
+    this.likes = likesCount
+  },
+
   data() {
     return {
       liked: false,
+      likes: null,
     }
   },
 
-  computed: {
-    ...mapGetters(['postLiked']),
-  },
-
   methods: {
-    ...mapActions(['like']),
+    async onClick() {
+      this.liked = !this.liked
 
-    onClickLike() {
-      this.liked = this.liked ? false : true
+      this.$emit('click', this.liked)
 
-      const likeStatusPayload = {
-        postId: this.postId,
-        likeStatus: this.liked,
-      }
+      const { likesCount, likeStatus } = await LikesService.getLikes(this.postId)
 
-      this.like(likeStatusPayload)
+      this.liked = likeStatus
+      this.likes = likesCount
     },
   },
 }
