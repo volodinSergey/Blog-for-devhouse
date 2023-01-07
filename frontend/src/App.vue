@@ -21,7 +21,9 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem('jwt')) this.getMe()
+    if (localStorage.getItem('jwt')) {
+      this.getMe()
+    }
   },
 
   methods: {
