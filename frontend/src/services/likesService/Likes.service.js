@@ -1,11 +1,12 @@
 import Axios from "@/api/axios"
 
+import { useGetLikesAdapter, useLikeStatusAdapter } from "@/services/likesService/Likes.service.adapters"
+
 const LikesService = {
     getLikes: async (id) => {
         const { data } = await Axios.get(`/api/posts/${id}?populate=*`)
 
-        const likesCount = data.data.attributes.likes
-        const likeStatus = data.data.attributes.liked
+        const { likesCount, likeStatus } = useGetLikesAdapter(data)
 
         return {
             likesCount,
@@ -14,16 +15,15 @@ const LikesService = {
     },
 
     like: async (id, likeStatus) => {
-        const data = {
+        const dataToPut = {
             data: {
                 liked: likeStatus
             }
         }
 
-        const postWithUpdatedLike = await Axios.put(`/api/posts/${id}`, data)
+        const postWithUpdatedLike = await Axios.put(`/api/posts/${id}`, dataToPut)
 
-        const isLiked = postWithUpdatedLike.data.liked
-        const likes = postWithUpdatedLike.data.likes
+        const { isLiked, likes } = useLikeStatusAdapter(postWithUpdatedLike)
 
         return { isLiked, likes }
     }

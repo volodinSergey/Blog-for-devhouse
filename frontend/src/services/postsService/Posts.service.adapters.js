@@ -1,4 +1,4 @@
-export const allPostsAdapter = data => {
+export const useAllPostsAdapter = data => {
     const adaptedPosts = data.data.map(post => ({
         id: post.id,
         title: post.attributes.title,

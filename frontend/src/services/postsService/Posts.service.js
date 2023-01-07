@@ -1,12 +1,12 @@
 import Axios from '@/api/axios'
 
-import { allPostsAdapter } from '@/services/postsService/Posts.service.adapters'
+import { useAllPostsAdapter } from '@/services/postsService/Posts.service.adapters'
 
 const PostsService = {
     getAll: async () => {
         const { data } = await Axios.get('/api/posts?populate[image]=*&populate[author][populate][0]=avatar')
 
-        const adaptedPosts = allPostsAdapter(data)
+        const adaptedPosts = useAllPostsAdapter(data)
 
         return adaptedPosts
     },
