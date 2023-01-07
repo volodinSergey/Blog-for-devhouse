@@ -30,7 +30,7 @@ const actions = {
         const posts = await PostsService.getAll()
 
         commit('setPosts', posts)
-    }
+    },
 
     // async getPost({ commit }, postIdToShow) {
     //     const post = await PostsService.getOne(postIdToShow)
@@ -38,11 +38,11 @@ const actions = {
     //     commit('setPost', post)
     // },
 
-    // async deletePost({ commit }, postIdToDelete) {
-    //     await PostsService.delete(postIdToDelete)
+    async deletePost({ commit }, postIdToDelete) {
+        await PostsService.delete(postIdToDelete)
 
-    //     commit('deletePost', postIdToDelete)
-    // }
+        commit('deletePost', postIdToDelete)
+    }
 }
 
 export default {

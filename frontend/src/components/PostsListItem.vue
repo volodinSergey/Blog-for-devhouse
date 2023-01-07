@@ -25,10 +25,13 @@
       />
     </div>
 
-    <PostLike
-      @click="liking"
-      :postId="post.id"
-    />
+    <div class="post-item__actions">
+      <PostLike
+        @click="liking"
+        :postId="post.id"
+      />
+      <PostDelete :postId="post.id" />
+    </div>
   </li>
 </template>
 
@@ -36,12 +39,14 @@
 import { mapActions } from 'vuex'
 
 import PostLike from './PostLike.vue'
+import PostDelete from './PostDelete.vue'
 
 export default {
   name: 'PostsListItem',
 
   components: {
     PostLike,
+    PostDelete,
   },
 
   props: {
@@ -99,6 +104,11 @@ export default {
   &__image {
     width: 100%;
     margin-bottom: 15px;
+  }
+
+  &__actions {
+    display: inline-flex;
+    gap: 20px;
   }
 }
 
