@@ -5,6 +5,7 @@ import RegisterView from '@/views/RegisterView'
 import LoginView from '@/views/LoginView'
 import HomeView from '@/views/HomeView'
 import PostsView from '@/views/PostsView.vue'
+import UserView from '@/views/UserView.vue'
 
 
 Vue.use(VueRouter)
@@ -38,7 +39,13 @@ const routes = [
     path: '/posts',
     name: 'postsView',
     component: PostsView
-  }
+  },
+
+  {
+    path: '/users/:id',
+    name: 'userView',
+    component: UserView
+  },
 ]
 
 const router = new VueRouter({

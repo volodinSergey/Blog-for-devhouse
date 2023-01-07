@@ -19,8 +19,9 @@
           </ul>
         </nav> -->
         <div class="header-box__right">
-          <div
+          <router-link
             v-if="isAuth"
+            :to="{ name: 'userView', params: { id: user.id } }"
             class="user-info"
           >
             <img
@@ -32,12 +33,12 @@
             <img
               v-else
               class="user-info__avatar"
-              src="@/assets/no-avatar.png"
+              src="@/assets/no-avatar.jpg"
               alt="user avatar"
             />
 
             <span class="user-info__name">{{ user.username }}</span>
-          </div>
+          </router-link>
 
           <AuthButtonsGroup />
         </div>
