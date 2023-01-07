@@ -17,6 +17,7 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
 
         const postToUpdate = await strapi.entityService.update('api::post.post', postIdToUpdate, {
             data: {
+                liked: likeStatus ? true : false,
                 likes: likeStatus ? findedPostById.likes + 1 : findedPostById.likes - 1,
             },
         });

@@ -39,6 +39,11 @@
       "required": true,
       "min": 0,
       "default": 0
+    },
+    "liked": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

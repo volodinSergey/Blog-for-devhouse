@@ -4,6 +4,7 @@ export const allPostsAdapter = data => {
         title: post.attributes.title,
         body: post.attributes.body,
         likes: post.attributes.likes || 0,
+        liked: post.attributes.liked || false,
         image: post.attributes?.image?.data?.attributes?.url || null,
         author: post.attributes.author.data.attributes.username,
         authorId: post.attributes.author.data.id,

@@ -6,7 +6,7 @@
     <div class="like-button__inner">
       <svg
         class="like-button__icon"
-        :class="{ 'like-button__icon--liked': liked }"
+        :class="{ 'like-button__icon--liked': postLiked }"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +24,14 @@
           />
         </g>
       </svg>
-
       <span class="like-button__likes-counter">{{ likesCount }}</span>
     </div>
   </button>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'PostLikeButton',
 
@@ -52,15 +53,22 @@ export default {
     }
   },
 
-  methods: {
-    onClickLike() {
-      if (this.liked) {
-        this.liked = false
+  computed: {
+    ...mapGetters(['postLiked']),
+  },
 
-        return
+  methods: {
+    ...mapActions(['like']),
+
+    onClickLike() {
+      this.liked = this.liked ? false : true
+
+      const likeStatusPayload = {
+        postId: this.postId,
+        likeStatus: this.liked,
       }
 
-      this.liked = true
+      this.like(likeStatusPayload)
     },
   },
 }
