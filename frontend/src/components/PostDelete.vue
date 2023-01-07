@@ -1,5 +1,8 @@
 <template>
-  <button class="delete-button">
+  <button
+    @click="onDelete"
+    class="delete-button"
+  >
     <svg
       class="delete-button__icon"
       viewBox="0 0 24 24"
@@ -29,8 +32,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'PostDelete',
+
+  props: {
+    postId: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  methods: {
+    ...mapActions(['deletePost']),
+
+    onDelete() {
+      this.deletePost(this.postId)
+    },
+  },
 }
 </script>
 

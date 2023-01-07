@@ -30,7 +30,7 @@
         @click="liking"
         :postId="post.id"
       />
-      <PostDelete />
+      <PostDelete :postId="post.id" />
     </div>
   </li>
 </template>

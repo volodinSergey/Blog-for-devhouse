@@ -27,7 +27,7 @@ const PostsService = {
 
     // create: async (newPostData) => await Axios.post('/api/posts', newPostData),
 
-    // delete: async (id) => await Axios.delete(`/api/posts/${id}`)
+    delete: async (id) => await Axios.delete(`/api/posts/${id}`)
 }
 
 export default PostsService
