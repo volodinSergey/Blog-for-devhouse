@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import RegisterView from '@/views/RegisterView'
+import RegisterView from '@/views/RegisterView'
 import LoginView from '@/views/LoginView'
 import HomeView from '@/views/HomeView'
 import PostsView from '@/views/PostsView.vue'
@@ -20,6 +20,12 @@ const routes = [
     path: '/login',
     name: 'loginView',
     component: LoginView
+  },
+
+  {
+    path: '/register',
+    name: 'registerView',
+    component: RegisterView
   },
 
   {

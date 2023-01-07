@@ -6,10 +6,14 @@ const state = {
     post: {},
 }
 
+
 const getters = {
     posts: state => state.posts,
     post: state => state.post,
+    postLiked: state => state.postLiked,
 }
+
+
 
 const mutations = {
     setIsLoading: (state, loadingPayload) => state.isLoading = loadingPayload,
@@ -26,7 +30,7 @@ const actions = {
         const posts = await PostsService.getAll()
 
         commit('setPosts', posts)
-    },
+    }
 
     // async getPost({ commit }, postIdToShow) {
     //     const post = await PostsService.getOne(postIdToShow)

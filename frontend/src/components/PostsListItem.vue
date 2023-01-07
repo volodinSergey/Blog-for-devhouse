@@ -24,12 +24,25 @@
         alt="post image"
       />
     </div>
+
+    <PostLike
+      @click="liking"
+      :postId="post.id"
+    />
   </li>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
+import PostLike from './PostLike.vue'
+
 export default {
   name: 'PostsListItem',
+
+  components: {
+    PostLike,
+  },
 
   props: {
     post: {
@@ -49,6 +62,19 @@ export default {
       const baseUrl = 'http://localhost:1337'
 
       return `${baseUrl}${this.post.authorAvatar}`
+    },
+  },
+
+  methods: {
+    ...mapActions(['like']),
+
+    liking(likeStatus) {
+      const likeStatusPayload = {
+        postId: this.post.id,
+        likeStatus: likeStatus,
+      }
+
+      this.like(likeStatusPayload)
     },
   },
 }
@@ -72,6 +98,7 @@ export default {
 
   &__image {
     width: 100%;
+    margin-bottom: 15px;
   }
 }
 
