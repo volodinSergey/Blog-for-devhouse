@@ -49,12 +49,6 @@ const actions = {
 
             const res = await AuthService.login(loginData)
 
-            // console.warn(warn)
-            // const role = meRes.datarole.name
-
-            const user = res.data.user
-            console.warn(user)
-
             if (res.data.jwt) {
                 localStorage.setItem('jwt', res.data.jwt)
             }

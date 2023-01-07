@@ -24,10 +24,18 @@
             class="user-info"
           >
             <img
+              v-if="fullAvatarUrl"
               class="user-info__avatar"
               :src="fullAvatarUrl"
               alt="user avatar"
             />
+            <img
+              v-else
+              class="user-info__avatar"
+              src="@/assets/no-avatar.png"
+              alt="user avatar"
+            />
+
             <span class="user-info__name">{{ user.username }}</span>
           </div>
 
@@ -60,8 +68,9 @@ export default {
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
-      console.log(this.user.avatar)
-      return `${baseUrl}${this.user.avatar.url}`
+      if (this.user?.avatar?.url) return `${baseUrl}${this.user?.avatar?.url}`
+
+      return false
     },
   },
 
@@ -111,6 +120,7 @@ export default {
   display: flex;
   gap: 10px;
   align-items: center;
+  cursor: pointer;
 
   &__avatar {
     width: 40px;
