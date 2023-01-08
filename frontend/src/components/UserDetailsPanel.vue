@@ -34,6 +34,7 @@ export default {
   computed: {
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
+
       if (this.avatar) return `${baseUrl}${this.avatar}`
 
       return false
@@ -45,6 +46,10 @@ export default {
 <style lang="scss" scoped>
 .user-details {
   margin-bottom: 3rem;
+  border: 1px solid #23243e;
+  border-top: 0px;
+  border-radius: 1rem;
+  padding: 2rem;
 
   &__avatar {
     display: grid;

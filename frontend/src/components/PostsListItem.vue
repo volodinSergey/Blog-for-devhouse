@@ -82,7 +82,7 @@ export default {
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
-      console.log(this.post.authorAvatar)
+
       if (this.post.authorAvatar) return `${baseUrl}${this.post.authorAvatar}`
 
       return false
@@ -97,6 +97,8 @@ export default {
         postId: this.post.id,
         likeStatus: likeStatus,
       }
+
+      if (!this.isAuth) this.$router.push({ name: 'loginView' })
 
       this.like(likeStatusPayload)
     },

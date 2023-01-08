@@ -1,7 +1,6 @@
-// import { useAllPostsAdapter } from "@/services/postsService/Posts.service.adapters"
-
 export const useGetOneAdapter = (data) => {
 
+    // Use postsAdapter here ?????.....
     const adaptedPosts = data.posts.map(post => ({
         id: post.id,
         title: post.title,
@@ -12,11 +11,7 @@ export const useGetOneAdapter = (data) => {
         author: post.author.username,
         authorId: post.author.id,
         authorAvatar: data.avatar.url
-        // author: post.author.username,
-        // authorId: post.author.data.id,
-        // authorAvatar: post.author.data.attributes?.avatar?.data?.attributes?.url,
     }))
-    data.posts.map(post => console.log(post))
 
     const adaptedUser = {
         id: data.id,

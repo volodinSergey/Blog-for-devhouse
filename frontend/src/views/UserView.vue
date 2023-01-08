@@ -7,8 +7,14 @@
           :avatar="user.avatar"
         />
 
+        <BasePostsListTitle> User news {{ user.username }} </BasePostsListTitle>
+
         <div class="user-box__content">
-          <PostsList :posts="user.posts" />
+          <PostsList
+            v-if="user.posts?.length"
+            :posts="user.posts"
+          />
+          <div v-else>No posts here</div>
         </div>
       </div>
     </div>
@@ -44,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 .user-page {
   &__box {
-    padding: 2rem;
+    padding: 0 2rem 2rem 2rem;
   }
 }
 

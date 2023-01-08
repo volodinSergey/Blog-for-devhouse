@@ -18,14 +18,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import BaseButton from '@/components/BaseButton.vue'
-
 export default {
   name: 'AuthButtonsGroup',
-
-  components: {
-    BaseButton,
-  },
 
   computed: {
     ...mapGetters({
