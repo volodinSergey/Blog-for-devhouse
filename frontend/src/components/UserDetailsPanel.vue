@@ -7,7 +7,7 @@
       alt="user avatar"
     />
     <img
-      class="user-details__avatar-image"
+      class="user-details__avatar"
       v-else
       src="@/assets/no-avatar.jpg"
       alt="user avatar"
@@ -49,8 +49,8 @@ export default {
   &__avatar {
     display: grid;
     place-items: center;
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     margin-bottom: 2rem;
     padding: 10px;
     background-color: transparent;

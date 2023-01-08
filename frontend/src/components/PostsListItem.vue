@@ -42,13 +42,16 @@
         @click="liking"
         :postId="post.id"
       />
-      <PostDelete :postId="post.id" />
+      <PostDelete
+        v-if="isAuth"
+        :postId="post.id"
+      />
     </div>
   </li>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import PostLike from './PostLike.vue'
 import PostDelete from './PostDelete.vue'
@@ -69,6 +72,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['isAuth']),
+
     fullPostImageUrl() {
       const baseUrl = 'http://localhost:1337'
 
@@ -126,7 +131,7 @@ export default {
 
   &__actions {
     display: inline-flex;
-    gap: 20px;
+    gap: 25px;
   }
 }
 
