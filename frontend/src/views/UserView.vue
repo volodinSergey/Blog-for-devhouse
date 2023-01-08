@@ -7,6 +7,8 @@
           :avatar="user.avatar"
         />
 
+        <FormAddPost />
+
         <BasePostsListTitle> User news {{ user.username }} </BasePostsListTitle>
 
         <div class="user-box__content">
@@ -26,6 +28,7 @@ import UsersService from '@/services/usersService/Users.service'
 
 import PostsList from '@/components/PostsList.vue'
 import UserDetailsPanel from '@/components/UserDetailsPanel.vue'
+import FormAddPost from '@/components/FormAddPost.vue'
 
 export default {
   name: 'UserView',
@@ -33,6 +36,7 @@ export default {
   components: {
     UserDetailsPanel,
     PostsList,
+    FormAddPost,
   },
 
   data() {

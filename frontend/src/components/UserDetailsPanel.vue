@@ -13,7 +13,9 @@
       alt="user avatar"
     />
 
-    <h1 class="user-details__username">{{ this.username }}</h1>
+    <h1 class="user-details__username">
+      {{ this.username }}
+    </h1>
   </div>
 </template>
 

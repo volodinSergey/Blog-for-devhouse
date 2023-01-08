@@ -4,21 +4,19 @@
       @submit.prevent="onRegister"
       class="register-form"
     >
-      <input
+      <BaseTextField
         v-model="username"
-        type="text"
         placeholder="name...."
       />
 
-      <input
+      <BaseInput
         v-model="email"
-        type="text"
         placeholder="email...."
       />
 
-      <input
-        v-model="password"
+      <BaseTextField
         type="password"
+        v-model="password"
         placeholder="password...."
       />
 
@@ -48,18 +46,14 @@ export default {
 
   methods: {
     ...mapActions(['register', 'getMe']),
-
     async onRegister() {
       const registrationData = {
         username: this.username,
         email: this.email,
         password: this.password,
       }
-
       await this.register(registrationData)
-
       await this.getMe()
-
       this.$router.push({ name: 'postsView' })
     },
   },

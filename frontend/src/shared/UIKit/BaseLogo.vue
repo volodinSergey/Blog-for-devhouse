@@ -3,14 +3,15 @@
     <router-link
       class="logo-box__logo"
       :to="{ name: 'postsView' }"
-      >Logotype
+    >
+      Logotype
     </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TheLogo',
+  name: 'BaseLogo',
 }
 </script>
 
