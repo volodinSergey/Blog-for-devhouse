@@ -21,7 +21,9 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem('jwt')) this.getMe()
+    if (localStorage.getItem('jwt')) {
+      this.getMe()
+    }
   },
 
   methods: {
@@ -59,6 +61,5 @@ body {
   color: rgb(87, 249, 255);
   font-family: sans-serif;
   color: #fff;
-  overflow: hidden;
 }
 </style>

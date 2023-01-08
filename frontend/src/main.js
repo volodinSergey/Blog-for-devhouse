@@ -3,7 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import useUiKit from '@/shared/UIKit/index'
+
 Vue.config.productionTip = false
+
+useUiKit()
 
 new Vue({
   router,

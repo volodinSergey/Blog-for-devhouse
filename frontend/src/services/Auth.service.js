@@ -14,9 +14,11 @@ const AuthService = {
     },
 
     getMe: async () => {
-        const meResponse = await Axios.get('api/users/me?populate=*')
+        const { data } = await Axios.get('api/users/me?populate=*')
 
-        return meResponse
+        const adaptedMe = data
+
+        return adaptedMe
     }
 }
 

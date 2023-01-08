@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <div class="container">
-      <div class="header__box">
+      <div class="header__box header-box">
         <TheLogo />
-
+        <!-- 
         <nav
           v-if="isAuth"
           class="navigation"
@@ -17,9 +17,12 @@
               </router-link>
             </li>
           </ul>
-        </nav>
+        </nav> -->
+        <div class="header-box__right">
+          <TheHeaderUserInfoPanel />
 
-        <AuthButtonsGroup />
+          <AuthButtonsGroup />
+        </div>
       </div>
     </div>
   </header>
@@ -28,6 +31,7 @@
 <script>
 import TheLogo from '@/components/TheLogo.vue'
 import AuthButtonsGroup from '@/components/AuthButtonsGroup.vue'
+import TheHeaderUserInfoPanel from './TheHeaderUserInfoPanel.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -37,12 +41,21 @@ export default {
   components: {
     TheLogo,
     AuthButtonsGroup,
+    TheHeaderUserInfoPanel,
   },
 
   computed: {
     ...mapGetters({
       isAuth: 'isAuth',
+      user: 'user',
     }),
+
+    fullAvatarUrl() {
+      const baseUrl = 'http://localhost:1337'
+      if (this.user?.avatar?.url) return `${baseUrl}${this.user?.avatar?.url}`
+
+      return false
+    },
   },
 
   methods: {
@@ -61,12 +74,19 @@ export default {
 .header {
   background-color: rgb(2 28 71 / 64%);
   padding: 15px;
-  box-shadow: 0px 6px 2px 0px rgba(34, 60, 80, 0.2);
 
   &__box {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+.header-box {
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
   }
 }
 

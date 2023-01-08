@@ -9,6 +9,7 @@ const state = {
 
 const getters = {
     isAuth: state => Boolean(state.user),
+    user: state => state.user
     // ownerId: state => state.user.id,
     // userRole: state => state.role
 }
@@ -47,19 +48,12 @@ const actions = {
             commit('setIsLoading', true)
 
             const res = await AuthService.login(loginData)
-            // const meRes = await AuthService.getMe()
-
-            // console.warn(warn)
-            // const role = meRes.datarole.name
-
-            const user = res.data.user
-            console.warn(user)
 
             if (res.data.jwt) {
                 localStorage.setItem('jwt', res.data.jwt)
             }
 
-            commit('setUser', user)
+            commit('setUser', res.data.user)
             // commit('setRole', role)
             commit('setToken', res.data.jwt)
             commit('setIsLoading', false)
@@ -83,15 +77,13 @@ const actions = {
         try {
             commit('setIsLoading', true)
 
-            const res = await AuthService.getMe()
+            const me = await AuthService.getMe()
 
-            const user = res.data
-
-            if (res.data?.jwt) {
-                localStorage.setItem('jwt', res.data?.jwt)
+            if (me?.jwt) {
+                localStorage.setItem('jwt', me?.jwt)
             }
 
-            commit('setUser', user)
+            commit('setUser', me)
             commit('setIsLoading', false)
         } catch (err) {
             commit('setIsLoading', false)

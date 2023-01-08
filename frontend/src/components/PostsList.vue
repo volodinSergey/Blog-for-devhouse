@@ -9,27 +9,19 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
 import PostsListItem from './PostsListItem.vue'
 
 export default {
   name: 'PostsList',
 
+  props: {
+    posts: {
+      type: Array,
+    },
+  },
+
   components: {
     PostsListItem,
-  },
-
-  created() {
-    this.getAllPosts()
-  },
-
-  computed: {
-    ...mapGetters(['posts']),
-  },
-
-  methods: {
-    ...mapActions(['getAllPosts']),
   },
 }
 </script>
