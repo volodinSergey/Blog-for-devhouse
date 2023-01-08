@@ -2,7 +2,7 @@
   <div class="logo-box">
     <router-link
       class="logo-box__logo"
-      :to="{}"
+      :to="{ name: 'postsView' }"
       >Logotype
     </router-link>
   </div>

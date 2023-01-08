@@ -1,11 +1,15 @@
 <template>
   <section class="user-page">
     <div class="container">
-      <div class="user-page__box">
+      <div class="user-page__box user-box">
         <UserDetailsPanel
           :username="user.username"
           :avatar="user.avatar"
         />
+
+        <div class="user-box__content">
+          <PostsList :posts="user.posts" />
+        </div>
       </div>
     </div>
   </section>
@@ -14,6 +18,7 @@
 <script>
 import UsersService from '@/services/usersService/Users.service'
 
+import PostsList from '@/components/PostsList.vue'
 import UserDetailsPanel from '@/components/UserDetailsPanel.vue'
 
 export default {
@@ -21,6 +26,7 @@ export default {
 
   components: {
     UserDetailsPanel,
+    PostsList,
   },
 
   data() {
@@ -39,10 +45,18 @@ export default {
 .user-page {
   &__box {
     padding: 2rem;
-    border: 1px solid #23243e;
-    border-radius: 10px;
   }
 }
+
+.user-box__content {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .container {
   max-width: 1480px;
   margin: 0 auto;

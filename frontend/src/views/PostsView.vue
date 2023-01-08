@@ -2,7 +2,11 @@
   <section class="posts">
     <div class="container">
       <div class="posts__box">
-        <PostsList />
+        <PostsList
+          v-if="posts"
+          :posts="posts"
+        />
+        <span v-else>No posts here</span>
 
         <PostsActions />
       </div>
@@ -11,6 +15,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 import PostsList from '@/components/PostsList.vue'
 import PostsActions from '@/components/PostsActions.vue'
 
@@ -20,6 +26,18 @@ export default {
   components: {
     PostsList,
     PostsActions,
+  },
+
+  created() {
+    this.getAllPosts()
+  },
+
+  computed: {
+    ...mapGetters(['posts']),
+  },
+
+  methods: {
+    ...mapActions(['getAllPosts']),
   },
 }
 </script>

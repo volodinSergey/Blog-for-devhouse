@@ -1,17 +1,18 @@
 <template>
   <div class="user-details">
-    <div class="user-details__avatar">
-      <img
-        v-if="fullAvatarUrl"
-        :src="fullAvatarUrl"
-        alt="user avatar"
-      />
-      <img
-        v-else
-        src="@/assets/no-avatar.jpg"
-        alt="user avatar"
-      />
-    </div>
+    <img
+      class="user-details__avatar"
+      v-if="fullAvatarUrl"
+      :src="fullAvatarUrl"
+      alt="user avatar"
+    />
+    <img
+      class="user-details__avatar-image"
+      v-else
+      src="@/assets/no-avatar.jpg"
+      alt="user avatar"
+    />
+
     <h1 class="user-details__username">{{ this.username }}</h1>
   </div>
 </template>
@@ -43,21 +44,18 @@ export default {
 
 <style lang="scss" scoped>
 .user-details {
+  margin-bottom: 3rem;
+
   &__avatar {
     display: grid;
     place-items: center;
-    width: 100px;
-    aspect-ratio: 1;
+    width: 90px;
+    height: 90px;
     margin-bottom: 2rem;
     padding: 10px;
     background-color: transparent;
     border-radius: 50%;
     border: 1px solid #fcfcfc29;
-
-    & img {
-      width: 100%;
-      border-radius: 50%;
-    }
   }
 
   &__username::first-letter {

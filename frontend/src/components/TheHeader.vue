@@ -19,26 +19,7 @@
           </ul>
         </nav> -->
         <div class="header-box__right">
-          <router-link
-            v-if="isAuth"
-            :to="{ name: 'userView', params: { id: user.id } }"
-            class="user-info"
-          >
-            <img
-              v-if="fullAvatarUrl"
-              class="user-info__avatar"
-              :src="fullAvatarUrl"
-              alt="user avatar"
-            />
-            <img
-              v-else
-              class="user-info__avatar"
-              src="@/assets/no-avatar.jpg"
-              alt="user avatar"
-            />
-
-            <span class="user-info__name">{{ user.username }}</span>
-          </router-link>
+          <TheHeaderUserInfoPanel />
 
           <AuthButtonsGroup />
         </div>
@@ -50,6 +31,7 @@
 <script>
 import TheLogo from '@/components/TheLogo.vue'
 import AuthButtonsGroup from '@/components/AuthButtonsGroup.vue'
+import TheHeaderUserInfoPanel from './TheHeaderUserInfoPanel.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -59,6 +41,7 @@ export default {
   components: {
     TheLogo,
     AuthButtonsGroup,
+    TheHeaderUserInfoPanel,
   },
 
   computed: {
@@ -115,19 +98,6 @@ export default {
   font-family: sans-serif;
   font-size: 1.3rem;
   color: #fff;
-}
-
-.user-info {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  cursor: pointer;
-
-  &__avatar {
-    width: 40px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
 }
 
 .container {
