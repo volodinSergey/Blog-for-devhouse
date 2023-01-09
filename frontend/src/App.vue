@@ -3,7 +3,7 @@
     <div class="container">
       <TheHeader />
 
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </div>
   </div>
 </template>
@@ -21,9 +21,7 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem('jwt')) {
-      this.getMe()
-    }
+    if (localStorage.getItem('jwt')) this.getMe()
   },
 
   methods: {

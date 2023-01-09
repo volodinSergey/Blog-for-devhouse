@@ -4,21 +4,19 @@
       @submit.prevent="onRegister"
       class="register-form"
     >
-      <input
+      <BaseTextField
         v-model="username"
-        type="text"
         placeholder="name...."
       />
 
-      <input
+      <BaseTextField
         v-model="email"
-        type="text"
         placeholder="email...."
       />
 
-      <input
-        v-model="password"
+      <BaseTextField
         type="password"
+        v-model="password"
         placeholder="password...."
       />
 
@@ -57,7 +55,6 @@ export default {
       }
 
       await this.register(registrationData)
-
       await this.getMe()
 
       this.$router.push({ name: 'postsView' })

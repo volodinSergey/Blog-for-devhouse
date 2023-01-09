@@ -4,15 +4,14 @@
       @submit.prevent="onLogin"
       class="register-form"
     >
-      <input
+      <BaseTextField
         v-model="identifier"
-        type="text"
         placeholder="email...."
       />
 
-      <input
-        v-model="password"
+      <BaseTextField
         type="password"
+        v-model="password"
         placeholder="password...."
       />
 

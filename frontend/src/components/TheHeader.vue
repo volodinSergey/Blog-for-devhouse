@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container">
       <div class="header__box header-box">
-        <TheLogo />
+        <BaseLogo />
         <!-- 
         <nav
           v-if="isAuth"
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import TheLogo from '@/components/TheLogo.vue'
 import AuthButtonsGroup from '@/components/AuthButtonsGroup.vue'
 import TheHeaderUserInfoPanel from './TheHeaderUserInfoPanel.vue'
 
@@ -39,7 +38,6 @@ export default {
   name: 'TheHeader',
 
   components: {
-    TheLogo,
     AuthButtonsGroup,
     TheHeaderUserInfoPanel,
   },

@@ -7,6 +7,34 @@
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::post.post', ({ strapi }) => ({
+    async create(ctx) {
+        const id = ctx.state.user.id
+
+        const title = ctx.request.body.title
+        const body = ctx.request.body.body
+        const image = ctx.request.body.image
+
+        console.log(title)
+        console.log(body)
+        console.log(image)
+
+        const entry = await strapi.entityService.create('api::post.post', {
+            data: {
+                title: title,
+                body: body,
+                image: image,
+                author: id
+            },
+
+            populate: {
+                author: true,
+                image: true
+            },
+        });
+
+        return entry
+    },
+
     async update(ctx) {
         const likeStatus = ctx.request.body.data.liked
         const postIdToUpdate = ctx.params.id
