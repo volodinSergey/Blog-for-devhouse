@@ -7,7 +7,7 @@
           :avatar="user.avatar"
         />
 
-        <FormAddPost />
+        <FormAddPost v-if="isAuth && currentUserId == user.id" />
 
         <BasePostsListTitle> User news {{ user.username }} </BasePostsListTitle>
 
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import UsersService from '@/services/usersService/Users.service'
 
 import PostsList from '@/components/PostsList.vue'
@@ -47,6 +49,10 @@ export default {
 
   created() {
     UsersService.getOne(this.$route.params.id).then(user => (this.user = user))
+  },
+
+  computed: {
+    ...mapGetters(['isAuth', 'currentUserId']),
   },
 }
 </script>

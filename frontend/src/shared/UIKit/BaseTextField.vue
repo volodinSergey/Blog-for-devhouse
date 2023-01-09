@@ -3,6 +3,7 @@
     class="base-textfield"
     v-if="textareaMode"
     :value="value"
+    :placeholder="placeholder"
     @input="emitInputValue"
   ></textarea>
 

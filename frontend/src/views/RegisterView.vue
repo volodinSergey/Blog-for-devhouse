@@ -9,7 +9,7 @@
         placeholder="name...."
       />
 
-      <BaseInput
+      <BaseTextField
         v-model="email"
         placeholder="email...."
       />
@@ -46,14 +46,17 @@ export default {
 
   methods: {
     ...mapActions(['register', 'getMe']),
+
     async onRegister() {
       const registrationData = {
         username: this.username,
         email: this.email,
         password: this.password,
       }
+
       await this.register(registrationData)
       await this.getMe()
+
       this.$router.push({ name: 'postsView' })
     },
   },
