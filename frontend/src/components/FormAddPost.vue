@@ -97,6 +97,11 @@ export default {
       }
 
       this.$emit('post-created', adaptedNewPost)
+
+      this.title = ''
+      this.body = ''
+      this.selectedImage = null
+      this.imageToPost = null
     },
   },
 }
