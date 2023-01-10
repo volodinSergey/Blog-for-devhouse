@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent=""
+    @submit.prevent
     class="add-post-form"
   >
     <BaseTextField
@@ -13,7 +13,7 @@
       placeholder="Type post body"
     />
 
-    <BaseButton @click="filePick">Choose image</BaseButton>
+    <BaseButton @click="triggerFilePicker">Choose image</BaseButton>
 
     <input
       ref="file"
@@ -34,7 +34,11 @@
       />
     </div>
 
-    <BaseButton @click="onCreatePost">Add post</BaseButton>
+    <BaseButton
+      type="submit"
+      @click="onCreatePost"
+      >Add post</BaseButton
+    >
   </form>
 </template>
 
@@ -71,7 +75,7 @@ export default {
       this.selectedImage = URL.createObjectURL(this.selectedImage)
     },
 
-    filePick() {
+    triggerFilePicker() {
       this.$refs.file.click()
     },
 
@@ -82,10 +86,26 @@ export default {
         image: this?.imageToPost,
       }
 
-      await PostsService.create(newPostData)
+      const { data: createdPost } = await PostsService.create(newPostData)
 
-      //  this.$router.push({ name: 'postsView' })
-      this.$router.go()
+      const adaptedNewPost = {
+        id: createdPost.id,
+        title: createdPost.title,
+        body: createdPost.body,
+        likes: createdPost.likes || 0,
+        liked: createdPost.liked,
+        image: createdPost.image?.url || null,
+        author: createdPost.author.username,
+        authorId: createdPost.author.id,
+        authorAvatar: createdPost.author.avatar?.url,
+      }
+
+      this.$emit('post-created', adaptedNewPost)
+
+      this.title = ''
+      this.body = ''
+      this.selectedImage = null
+      this.imageToPost = null
     },
   },
 }

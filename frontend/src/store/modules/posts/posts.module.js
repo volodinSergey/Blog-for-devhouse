@@ -28,15 +28,10 @@ const mutations = {
 const actions = {
     async getAllPosts({ commit }) {
         const posts = await PostsService.getAll()
+        const sortedPosts = posts.sort((prev, next) => next.id - prev.id)
 
-        commit('setPosts', posts)
+        commit('setPosts', sortedPosts)
     },
-
-    // async getPost({ commit }, postIdToShow) {
-    //     const post = await PostsService.getOne(postIdToShow)
-    //     console.log(post)
-    //     commit('setPost', post)
-    // },
 
     async deletePost({ commit }, postIdToDelete) {
         await PostsService.delete(postIdToDelete)
