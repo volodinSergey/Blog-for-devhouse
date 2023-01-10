@@ -14,9 +14,6 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
         const body = ctx.request.body.body
         const image = ctx.request.body.image
 
-        console.log(title)
-        console.log(body)
-        console.log(image)
 
         const entry = await strapi.entityService.create('api::post.post', {
             data: {
@@ -28,8 +25,15 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
 
             populate: {
                 author: true,
-                image: true
+                avatar: true,
+                image: true,
+                author: {
+                    populate: {
+                        avatar: true
+                    }
+                }
             },
+
         });
 
         return entry

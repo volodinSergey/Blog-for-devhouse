@@ -82,10 +82,21 @@ export default {
         image: this?.imageToPost,
       }
 
-      await PostsService.create(newPostData)
+      const { data: createdPost } = await PostsService.create(newPostData)
 
-      //  this.$router.push({ name: 'postsView' })
-      this.$router.go()
+      const adaptedNewPost = {
+        id: createdPost.id,
+        title: createdPost.title,
+        body: createdPost.body,
+        likes: createdPost.likes || 0,
+        liked: createdPost.liked,
+        image: createdPost.image?.url || null,
+        author: createdPost.author.username,
+        authorId: createdPost.author.id,
+        authorAvatar: createdPost.author.avatar?.url,
+      }
+
+      this.$emit('post-created', adaptedNewPost)
     },
   },
 }

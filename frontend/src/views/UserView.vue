@@ -3,20 +3,23 @@
     <div class="container">
       <div class="user-page__box user-box">
         <UserDetailsPanel
-          :username="user.username"
-          :avatar="user.avatar"
+          :username="userInfo.username"
+          :avatar="userInfo.avatar"
         />
 
-        <FormAddPost v-if="isAuth && currentUserId == user.id" />
+        <FormAddPost
+          v-if="isAuth && currentUserId == userInfo.id"
+          @post-created="setPosts"
+        />
 
-        <BasePostsListTitle> User news {{ user.username }} </BasePostsListTitle>
+        <BasePostsListTitle> User news {{ userInfo.username }} </BasePostsListTitle>
 
         <div class="user-box__content">
           <PostsList
-            v-if="user.posts?.length"
-            :posts="user.posts"
+            v-if="this.posts?.length"
+            :posts="this.posts"
           />
-          <div v-else>No posts here</div>
+          <div v-else>No posts here yet ....</div>
         </div>
       </div>
     </div>
@@ -43,12 +46,33 @@ export default {
 
   data() {
     return {
-      user: {},
+      userInfo: {},
+      posts: [],
     }
   },
 
   created() {
-    UsersService.getOne(this.$route.params.id).then(user => (this.user = user))
+    UsersService.getOne(this.$route.params.id).then(userData => {
+      const { id, username, avatar, posts } = userData
+
+      const userInfo = {
+        id,
+        username,
+        avatar,
+      }
+
+      this.userInfo = userInfo
+
+      const sortedPosts = posts.sort((prev, next) => next.id - prev.id)
+
+      this.posts = sortedPosts
+    })
+  },
+
+  methods: {
+    setPosts(newPostData) {
+      this.posts = [newPostData, ...this.posts]
+    },
   },
 
   computed: {
