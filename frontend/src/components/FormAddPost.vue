@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent=""
+    @submit.prevent
     class="add-post-form"
   >
     <BaseTextField
@@ -13,7 +13,7 @@
       placeholder="Type post body"
     />
 
-    <BaseButton @click="filePick">Choose image</BaseButton>
+    <BaseButton @click="triggerFilePicker">Choose image</BaseButton>
 
     <input
       ref="file"
@@ -34,7 +34,11 @@
       />
     </div>
 
-    <BaseButton @click="onCreatePost">Add post</BaseButton>
+    <BaseButton
+      type="submit"
+      @click="onCreatePost"
+      >Add post</BaseButton
+    >
   </form>
 </template>
 
@@ -71,7 +75,7 @@ export default {
       this.selectedImage = URL.createObjectURL(this.selectedImage)
     },
 
-    filePick() {
+    triggerFilePicker() {
       this.$refs.file.click()
     },
 
