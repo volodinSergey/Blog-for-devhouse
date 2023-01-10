@@ -18,7 +18,7 @@
           alt="user avatar"
         />
 
-        <span class="author-info-name">{{ post.author }}</span>
+        <span class="author-info-name">{{ post.author.name }}</span>
       </div>
 
       <h2 class="post-item__title">{{ post.title }}</h2>
@@ -47,12 +47,18 @@
         :postId="post.id"
       />
     </div>
+
+    <CommentsList
+      v-if="post.comments?.length"
+      :comments="post.comments"
+    />
   </li>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
+import CommentsList from './CommentsList.vue'
 import PostLike from './PostLike.vue'
 import PostDelete from './PostDelete.vue'
 
@@ -62,6 +68,7 @@ export default {
   components: {
     PostLike,
     PostDelete,
+    CommentsList,
   },
 
   props: {
@@ -83,7 +90,7 @@ export default {
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
 
-      if (this.post.authorAvatar) return `${baseUrl}${this.post.authorAvatar}`
+      if (this.post.author.avatar) return `${baseUrl}${this.post.author.avatar}`
 
       return false
     },
@@ -134,6 +141,7 @@ export default {
   &__actions {
     display: inline-flex;
     gap: 25px;
+    margin-bottom: 1rem;
   }
 }
 

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="posts__box">
         <PostsList
-          v-if="posts"
+          v-if="posts?.length"
           :posts="posts"
         />
         <span v-else>No posts here</span>
