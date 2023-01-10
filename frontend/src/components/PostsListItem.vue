@@ -48,8 +48,17 @@
       />
     </div>
 
+    <button
+      class="show-comments-button"
+      v-show="post.comments?.length"
+      @click="toggleCommentsShowing"
+    >
+      {{ toggleCommentsButtonText }}
+    </button>
+
     <CommentsList
       v-if="post.comments?.length"
+      :commentsShowed="commentsShowed"
       :comments="post.comments"
     />
   </li>
@@ -69,6 +78,12 @@ export default {
     PostLike,
     PostDelete,
     CommentsList,
+  },
+
+  data() {
+    return {
+      commentsShowed: false,
+    }
   },
 
   props: {
@@ -94,6 +109,12 @@ export default {
 
       return false
     },
+
+    toggleCommentsButtonText() {
+      if (this.commentsShowed) return 'Hide comments'
+
+      return 'Show comments'
+    },
   },
 
   methods: {
@@ -112,6 +133,10 @@ export default {
 
     goToAuthorPage() {
       this.$router.push({ name: 'userView', params: { id: this.post.authorId } })
+    },
+
+    toggleCommentsShowing() {
+      this.commentsShowed = !this.commentsShowed
     },
   },
 }
@@ -156,6 +181,26 @@ export default {
     width: 50px;
     aspect-ratio: 1;
     border-radius: 50%;
+  }
+}
+
+.show-comments-button {
+  display: block;
+  font-size: 1.2rem;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #fff;
+  transition: 0.2s;
+  width: 100%;
+  text-align: left;
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: #00000026;
+    }
   }
 }
 </style>

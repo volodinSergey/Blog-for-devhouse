@@ -11,7 +11,7 @@
     <div class="comment-item__right-box">
       <p class="comment-item__authorname">{{ authorname }}</p>
 
-      <h5 class="comment-item__body">{{ body }}</h5>
+      <p class="comment-item__body">{{ body }}</p>
     </div>
   </li>
 </template>

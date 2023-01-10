@@ -1,5 +1,8 @@
 <template>
-  <ul class="comments-list">
+  <ul
+    class="comments-list"
+    :class="{ 'comments-list--showed': commentsShowed }"
+  >
     <CommentsListItem
       v-for="comment in comments"
       :key="comment.id"
@@ -24,6 +27,11 @@ export default {
       type: Array,
       required: false,
     },
+
+    commentsShowed: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
@@ -31,10 +39,20 @@ export default {
 <style lang="scss" scoped>
 .comments-list {
   display: flex;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: 0.22s;
   flex-direction: column;
   gap: 10px;
   background-color: #021b8924;
   padding: 5px;
   border-radius: 10px;
+
+  &--showed {
+    max-height: 100%;
+    opacity: 1;
+    overflow: visible;
+  }
 }
 </style>
