@@ -14,6 +14,7 @@ const PostsService = {
     getOne: async (id) => {
         const { data } = await Axios.get(`/api/posts/${id}`)
 
+        // !To do post adapter
         const adaptedPost = {
             title: data.data.attributes.title,
             body: data.data.attributes.body,
@@ -26,7 +27,7 @@ const PostsService = {
     },
 
     getUserPosts: async (userId) => {
-        const { data } = await Axios.get(`/api/posts/${userId}/posts`)
+        const { data } = await Axios.get(`/api/posts/user/${userId}`)
 
         const adaptedPosts = useAllPostsAdapter(data)
 

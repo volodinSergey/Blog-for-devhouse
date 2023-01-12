@@ -58,11 +58,14 @@
       </button> -->
 
       <CommentsList
-        v-if="post.comments?.length"
-        :comments="post.comments"
+        v-if="comments?.length"
+        :comments="comments"
       />
 
-      <FormAddComment v-if="isAuth" />
+      <FormAddComment
+        v-if="isAuth"
+        @comment-added="updateComments"
+      />
     </div>
   </li>
 </template>
@@ -89,6 +92,16 @@ export default {
       type: Object,
       required: true,
     },
+
+    data() {
+      return {
+        comments: [],
+      }
+    },
+  },
+
+  created() {
+    this.comments = this.post.comments
   },
 
   computed: {
@@ -131,6 +144,14 @@ export default {
 
     goToAuthorPage() {
       this.$router.push({ name: 'userView', params: { id: this.post.author.id } })
+    },
+
+    updateComments(newComment) {
+      const normalizedComment = {
+        body: newComment.data.body,
+      }
+
+      this.comments = [normalizedComment, ...this.comments]
     },
 
     // toggleCommentsShowing() {

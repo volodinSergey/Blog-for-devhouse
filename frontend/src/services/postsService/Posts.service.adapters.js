@@ -1,4 +1,6 @@
+import { useCommentsAdapter } from "@/services/commentsService/Comments.service.adapters"
 export const useAllPostsAdapter = data => {
+
     const adaptedPosts = data.map(post => ({
         id: post.id,
         title: post.title,
@@ -13,9 +15,10 @@ export const useAllPostsAdapter = data => {
             avatar: post.author.avatar?.url
         },
 
-        comments: post.comments
+        comments: useCommentsAdapter(post.comments)
     }))
 
+    console.log(adaptedPosts)
 
 
     return adaptedPosts

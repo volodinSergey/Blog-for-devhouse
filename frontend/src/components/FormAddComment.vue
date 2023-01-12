@@ -1,14 +1,15 @@
 <template>
-  <form
-    @sumbit.prevent="onAddComment"
-    class="add-comment-form"
-  >
+  <form class="add-comment-form">
     <BaseTextField
       v-model="commentBody"
       placeholder="Add your comment"
     />
 
-    <button class="add-comment-form__button">
+    <button
+      type="submit"
+      @click.prevent="onAddComment"
+      class="add-comment-form__button"
+    >
       <svg
         class="add-comment-form__button-icon"
         width="64px"
@@ -73,12 +74,14 @@ export default {
   methods: {
     async onAddComment() {
       const newCommentData = {
-        body: this.commentBody,
+        data: {
+          body: this.commentBody,
+        },
       }
 
       const response = await CommentsService.leaveComment(newCommentData)
-      console.log(response)
-      // this.$emit('comment-added', newCommentData)
+
+      this.$emit('comment-added', newCommentData)
     },
   },
 }

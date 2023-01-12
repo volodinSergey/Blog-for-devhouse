@@ -3,9 +3,9 @@
     <CommentsListItem
       v-for="comment in comments"
       :key="comment.id"
-      :authorname="comment.author.username"
+      :authorname="comment.author.name"
       :authorId="comment.author.id"
-      :avatar="comment.author.avatar?.url"
+      :avatar="comment.author?.avatar"
       :body="comment.body"
     />
   </ul>
@@ -24,7 +24,7 @@ export default {
   props: {
     comments: {
       type: Array,
-      required: false,
+      required: true,
     },
 
     // commentsShowed: {

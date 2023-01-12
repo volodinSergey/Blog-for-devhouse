@@ -30,9 +30,9 @@ const customRouter = (innerRouter, extraRoutes = []) => {
 const myExtraRoutes = [
     {
         method: 'GET',
-        path: '/posts/:userId/posts',
+        path: '/posts/user/:userId',
         handler: 'api::post.post.findUserPosts',
-    },
+    }
 ];
 
 module.exports = customRouter(defaultRouter, myExtraRoutes);
