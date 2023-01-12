@@ -7,6 +7,60 @@
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::post.post', ({ strapi }) => ({
+    async findUserPosts(ctx) {
+        const userIdToFindPosts = ctx.params.userId
+
+        const userPosts = await strapi.entityService.findMany('api::post.post', {
+            sort: {
+                createdAt: 'DESC',
+
+            },
+
+            filters: {
+                author: {
+                    id: userIdToFindPosts
+                }
+            },
+
+            populate: {
+                image: {
+                    fields: ['url']
+                },
+
+                author: {
+
+                    fields: ['id', 'username'],
+
+                    populate: {
+                        avatar: {
+                            fields: ['url']
+                        }
+                    }
+                },
+
+                comments: {
+                    sort: { createdAt: 'DESC' },
+
+                    populate: {
+                        author: {
+                            fields: ['id', 'username'],
+
+                            populate: {
+                                avatar: {
+                                    fields: ['url']
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        })
+
+        return userPosts
+    },
+
     async find(ctx) {
         const posts = await strapi.entityService.findMany('api::post.post', {
             sort: { createdAt: 'DESC' },
@@ -27,6 +81,8 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
                 },
 
                 comments: {
+                    sort: { createdAt: 'DESC' },
+
                     populate: {
                         author: {
                             fields: ['id', 'username'],
@@ -54,10 +110,14 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
 
             populate: {
                 author: {
+                    fields: ['id', 'username'],
                     populate: {
-                        avatar: true
+                        avatar: {
+                            fields: ['url']
+                        }
                     }
                 },
+
                 image: {
                     fields: ['url']
                 },
@@ -66,6 +126,12 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
                     populate: {
                         author: {
                             fields: ['id', ' username'],
+
+                            populate: {
+                                avatar: {
+                                    fields: ['url']
+                                },
+                            }
                         }
                     }
                 }

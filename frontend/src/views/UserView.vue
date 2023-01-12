@@ -54,6 +54,7 @@ export default {
   created() {
     UsersService.getOne(this.$route.params.id).then(userData => {
       const { id, username, avatar, posts } = userData
+      console.log(posts)
 
       const userInfo = {
         id,

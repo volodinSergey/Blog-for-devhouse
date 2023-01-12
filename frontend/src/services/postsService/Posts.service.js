@@ -6,24 +6,7 @@ const PostsService = {
     getAll: async () => {
         const { data } = await Axios.get('/api/posts')
 
-        const adaptedPosts = data.map(post => ({
-            id: post.id,
-            title: post.title,
-            body: post.body,
-            image: post.image?.url,
-            liked: post.liked,
-            likes: post.likes,
-
-            author: {
-                id: post.author.id,
-                name: post.author.username,
-                avatar: post.author.avatar?.url
-            },
-
-            comments: post.comments
-        }))
-        console.warn(adaptedPosts)
-        // const adaptedPosts = useAllPostsAdapter(data)
+        const adaptedPosts = useAllPostsAdapter(data)
 
         return adaptedPosts
     },

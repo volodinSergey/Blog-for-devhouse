@@ -31,8 +31,6 @@ export default {
   display: grid;
   gap: 1.5rem;
   flex-basis: 40%;
-  overflow-y: auto;
-  max-height: 90vh;
   border-radius: 0.9rem;
 
   @media (max-width: 720px) {
