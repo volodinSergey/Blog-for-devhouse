@@ -1,11 +1,13 @@
 <template>
   <li class="comment-item">
     <div class="comment-item__left-box">
-      <img
-        class="comment-item__avatar"
-        :src="`http://localhost:1337${avatar}`"
-        alt="comment author"
-      />
+      <router-link :to="{ name: 'userView', params: { id: authorId } }">
+        <img
+          class="comment-item__avatar"
+          :src="`http://localhost:1337${avatar}`"
+          alt="comment author"
+        />
+      </router-link>
     </div>
 
     <div class="comment-item__right-box">
@@ -31,8 +33,10 @@ export default {
       required: true,
     },
 
-    authorname: {
-      type: String,
+    authorname: {},
+
+    authorId: {
+      type: Number,
       required: true,
     },
   },

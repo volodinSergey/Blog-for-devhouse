@@ -4,6 +4,7 @@
       v-for="comment in comments"
       :key="comment.id"
       :authorname="comment.author.username"
+      :authorId="comment.author.id"
       :avatar="comment.author.avatar?.url"
       :body="comment.body"
     />
@@ -12,6 +13,7 @@
 
 <script>
 import CommentsListItem from '@/components/CommentsListItem.vue'
+
 export default {
   name: 'CommentsList',
 
