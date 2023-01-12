@@ -3,21 +3,7 @@
     <div class="container">
       <div class="header__box header-box">
         <BaseLogo />
-        <!-- 
-        <nav
-          v-if="isAuth"
-          class="navigation"
-        >
-          <ul class="navigation__list navigation-list">
-            <li class="navigation-list__item">
-              <router-link
-                class="navigation-list__link"
-                :to="{ name: 'postsView' }"
-                >Posts
-              </router-link>
-            </li>
-          </ul>
-        </nav> -->
+
         <div class="header-box__right">
           <TheHeaderUserInfoPanel />
 
@@ -70,8 +56,10 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background-color: rgb(2 28 71 / 64%);
+  background-color: rgb(2 28 71);
   padding: 15px;
+  position: sticky;
+  top: 0;
 
   &__box {
     display: flex;

@@ -25,6 +25,14 @@ const PostsService = {
         return adaptedPost
     },
 
+    getUserPosts: async (userId) => {
+        const { data } = await Axios.get(`/api/posts/${userId}/posts`)
+
+        const adaptedPosts = useAllPostsAdapter(data)
+
+        return adaptedPosts
+    },
+
     create: async (newPostData) => await Axios.post('/api/posts', newPostData),
 
     delete: async (id) => await Axios.delete(`/api/posts/${id}`)

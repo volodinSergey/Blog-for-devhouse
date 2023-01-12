@@ -10,7 +10,8 @@ const UsersService = {
     },
 
     getOne: async (id) => {
-        const { data } = await Axios.get(`/api/users/${id}?populate[posts][populate]=*&populate[avatar]=*`)
+        const { data } = await Axios.get(`/api/users/${id}?populate[avatar]=*`)
+
         const adaptedUser = useGetOneAdapter(data)
 
         return adaptedUser

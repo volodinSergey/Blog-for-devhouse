@@ -130,7 +130,7 @@ export default {
     },
 
     goToAuthorPage() {
-      this.$router.push({ name: 'userView', params: { id: this.post.authorId } })
+      this.$router.push({ name: 'userView', params: { id: this.post.author.id } })
     },
 
     // toggleCommentsShowing() {
