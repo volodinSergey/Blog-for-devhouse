@@ -40,7 +40,7 @@
 
         <button
           v-if="isAuth && authorId === currentUserId"
-          @click="onEditComment"
+          @click="toggleEditCommentMode"
           class="comment-actions__edit-comment-button"
         >
           Edit
@@ -103,7 +103,7 @@ export default {
       this.$emit('comment-deleted')
     },
 
-    async onEditComment() {
+    async toggleEditCommentMode() {
       this.editMode = !this.editMode
     },
 
