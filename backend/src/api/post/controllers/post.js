@@ -39,8 +39,6 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
                 },
 
                 comments: {
-                    sort: { createdAt: 'DESC' },
-
                     populate: {
                         author: {
                             fields: ['id', 'username'],
@@ -81,8 +79,6 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
                 },
 
                 comments: {
-                    sort: { createdAt: 'DESC' },
-
                     populate: {
                         author: {
                             fields: ['id', 'username'],

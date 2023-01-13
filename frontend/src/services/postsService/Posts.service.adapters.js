@@ -18,8 +18,6 @@ export const useAllPostsAdapter = data => {
         comments: useCommentsAdapter(post.comments)
     }))
 
-    console.log(adaptedPosts)
-
 
     return adaptedPosts
 }

@@ -64,6 +64,7 @@
 
       <FormAddComment
         v-if="isAuth"
+        :post-id="post.id"
         @comment-added="updateComments"
       />
     </div>
@@ -146,12 +147,8 @@ export default {
       this.$router.push({ name: 'userView', params: { id: this.post.author.id } })
     },
 
-    updateComments(newComment) {
-      const normalizedComment = {
-        body: newComment.data.body,
-      }
-
-      this.comments = [normalizedComment, ...this.comments]
+    updateComments(createdComment) {
+      this.comments.push(createdComment)
     },
 
     // toggleCommentsShowing() {

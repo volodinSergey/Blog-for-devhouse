@@ -10,15 +10,22 @@ module.exports = createCoreController('api::comment.comment', ({ strapi }) => ({
     async create(ctx) {
         const authorId = ctx.state.user.id
         const newCommentBody = ctx.request.body.data.body
+        const postId = ctx.request.body.data.postId
 
+        console.log(postId)
 
         const newComment = await strapi.entityService.create('api::comment.comment', {
             data: {
                 body: newCommentBody,
-                author: authorId
+                author: authorId,
+                post: postId
             },
 
+
+
             populate: {
+                post: true,
+
                 author: {
                     fields: ['username'],
 

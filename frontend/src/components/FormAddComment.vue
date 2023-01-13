@@ -65,6 +65,13 @@ import CommentsService from '@/services/commentsService/Comments.service'
 export default {
   name: 'FormAddComment',
 
+  props: {
+    postId: {
+      type: Number,
+      require: true,
+    },
+  },
+
   data() {
     return {
       commentBody: '',
@@ -75,13 +82,13 @@ export default {
     async onAddComment() {
       const newCommentData = {
         data: {
+          postId: this.postId,
           body: this.commentBody,
         },
       }
 
-      const response = await CommentsService.leaveComment(newCommentData)
-
-      this.$emit('comment-added', newCommentData)
+      const createdComment = await CommentsService.createComment(newCommentData)
+      this.$emit('comment-added', createdComment)
     },
   },
 }
