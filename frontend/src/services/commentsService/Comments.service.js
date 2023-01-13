@@ -17,6 +17,10 @@ const CommentsService = {
         const adaptedComment = useCommentAdapter(data)
 
         return adaptedComment
+    },
+
+    edit: async (id, commentToEdit) => {
+        await Axios.put(`/api/comments/${id}`, commentToEdit)
     }
 }
 
