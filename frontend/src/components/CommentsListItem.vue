@@ -94,11 +94,14 @@ export default {
     margin-bottom: 5px;
   }
 
+  &:not(:last-child) &__right-box {
+    border-bottom: 1px solid #23243e;
+  }
+
   &__right-box {
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
-    border-bottom: 1px solid #23243e;
   }
 }
 
