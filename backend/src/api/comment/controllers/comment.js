@@ -12,7 +12,6 @@ module.exports = createCoreController('api::comment.comment', ({ strapi }) => ({
         const newCommentBody = ctx.request.body.data.body
         const postId = ctx.request.body.data.postId
 
-        console.log(postId)
 
         const newComment = await strapi.entityService.create('api::comment.comment', {
             data: {
@@ -41,5 +40,29 @@ module.exports = createCoreController('api::comment.comment', ({ strapi }) => ({
 
 
         return newComment
+    },
+
+    async delete(ctx) {
+        const commentIdToDelete = ctx.params.id
+
+        console.log(commentIdToDelete)
+
+        const deletedComment = await strapi.entityService.delete('api::comment.comment', commentIdToDelete, {
+            populate: {
+                post: true,
+
+                author: {
+                    fields: ['username'],
+
+                    populate: {
+                        avatar: {
+                            fields: ['url']
+                        }
+                    }
+                }
+            },
+        });
+
+        return deletedComment
     }
 }));

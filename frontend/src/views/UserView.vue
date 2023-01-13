@@ -60,7 +60,7 @@ export default {
 
   methods: {
     setPosts(newPostData) {
-      this.posts = [newPostData, ...this.posts]
+      this.userPosts = [newPostData, ...this.userPosts]
     },
   },
 

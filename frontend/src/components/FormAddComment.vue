@@ -9,6 +9,7 @@
       type="submit"
       @click.prevent="onAddComment"
       class="add-comment-form__button"
+      :disabled="isCommentExists"
     >
       <svg
         class="add-comment-form__button-icon"
@@ -78,6 +79,12 @@ export default {
     }
   },
 
+  computed: {
+    isCommentExists() {
+      return this.commentBody.length > 0 ? false : true
+    },
+  },
+
   methods: {
     async onAddComment() {
       const newCommentData = {
@@ -87,8 +94,11 @@ export default {
         },
       }
 
-      const createdComment = await CommentsService.createComment(newCommentData)
+      const createdComment = await CommentsService.create(newCommentData)
+
       this.$emit('comment-added', createdComment)
+
+      this.commentBody = ''
     },
   },
 }
@@ -112,6 +122,10 @@ export default {
   border-radius: 10px;
   transition: all 0.2s;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+  }
 
   @media (any-hover: hover) {
     &:hover {

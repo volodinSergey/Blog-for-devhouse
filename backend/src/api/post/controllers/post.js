@@ -161,6 +161,20 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
                     populate: {
                         avatar: true
                     }
+                },
+
+                comments: {
+                    populate: {
+                        author: {
+                            fields: ['id', 'username'],
+
+                            populate: {
+                                avatar: {
+                                    fields: ['url']
+                                }
+                            }
+                        }
+                    }
                 }
             },
 

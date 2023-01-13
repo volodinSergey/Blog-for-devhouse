@@ -12,7 +12,6 @@ const getters = {
 }
 
 
-
 const mutations = {
     setIsLoading: (state, loadingPayload) => state.isLoading = loadingPayload,
     setPosts: (state, postsPayload) => state.posts = postsPayload,

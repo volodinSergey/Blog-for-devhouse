@@ -3,8 +3,16 @@ import Axios from "@/api/axios"
 import { useCommentAdapter } from "@/services/commentsService/Comments.service.adapters"
 
 const CommentsService = {
-    createComment: async (newComment) => {
+    create: async (newComment) => {
         const { data } = await Axios.post('api/comments', newComment)
+
+        const adaptedComment = useCommentAdapter(data)
+
+        return adaptedComment
+    },
+
+    delete: async (id) => {
+        const { data } = await Axios.delete(`/api/comments/${id}`)
 
         const adaptedComment = useCommentAdapter(data)
 

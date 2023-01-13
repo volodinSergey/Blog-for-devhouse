@@ -37,35 +37,29 @@
       />
     </div>
 
-    <!-- <div class="post-item__actions">
-      <PostLike
+    <div class="post-item__actions">
+      <!-- <PostLike
         @click="liking"
         :postId="post.id"
-      />
+      /> -->
+
       <PostDelete
-        v-if="isAuth && currentUserId == post.authorId"
+        v-if="isAuth && currentUserId === post.author.id"
         :postId="post.id"
       />
-    </div> -->
+    </div>
 
     <div class="post-item__comments-section">
-      <!-- <button
-        class="show-comments-button"
-        v-show="post.comments?.length"
-        @click="toggleCommentsShowing"
-      >
-        {{ toggleCommentsButtonText }}
-      </button> -->
-
       <CommentsList
-        v-if="comments?.length"
+        v-if="comments"
         :comments="comments"
+        @comment-deleted="handleDeletingComment"
       />
 
       <FormAddComment
         v-if="isAuth"
         :post-id="post.id"
-        @comment-added="updateComments"
+        @comment-added="handleAddingComment"
       />
     </div>
   </li>
@@ -77,14 +71,14 @@ import { mapActions, mapGetters } from 'vuex'
 import CommentsList from '@/components/CommentsList.vue'
 import FormAddComment from '@/components/FormAddComment.vue'
 // import PostLike from './PostLike.vue'
-// import PostDelete from './PostDelete.vue'
+import PostDelete from '@/components/PostDelete.vue'
 
 export default {
   name: 'PostsListItem',
 
   components: {
     // PostLike,
-    // PostDelete,
+    PostDelete,
     CommentsList,
     FormAddComment,
   },
@@ -121,12 +115,6 @@ export default {
 
       return false
     },
-
-    // toggleCommentsButtonText() {
-    //   if (this.commentsShowed) return 'Hide comments'
-
-    //   return 'Show comments'
-    // },
   },
 
   methods: {
@@ -147,13 +135,13 @@ export default {
       this.$router.push({ name: 'userView', params: { id: this.post.author.id } })
     },
 
-    updateComments(createdComment) {
+    handleAddingComment(createdComment) {
       this.comments.push(createdComment)
     },
 
-    // toggleCommentsShowing() {
-    //   this.commentsShowed = !this.commentsShowed
-    // },
+    handleDeletingComment(index) {
+      this.$delete(this.comments, index)
+    },
   },
 }
 </script>

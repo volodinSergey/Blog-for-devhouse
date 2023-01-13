@@ -11,18 +11,37 @@
     </div>
 
     <div class="comment-item__right-box">
-      <p class="comment-item__authorname">{{ authorname }}</p>
+      <div>
+        <p class="comment-item__authorname">{{ authorname }}</p>
 
-      <p class="comment-item__body">{{ body }}</p>
+        <p class="comment-item__body">{{ body }}</p>
+      </div>
+
+      <button
+        v-if="isAuth && authorId === currentUserId"
+        class="delete-comment-button"
+        @click="onDeleteComment"
+      >
+        Delete
+      </button>
     </div>
   </li>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+import CommentsService from '@/services/commentsService/Comments.service'
+
 export default {
   name: 'CommentsListItem',
 
   props: {
+    commentId: {
+      type: Number,
+      required: true,
+    },
+
     avatar: {
       type: String,
       required: false,
@@ -38,6 +57,18 @@ export default {
     authorId: {
       type: Number,
       required: true,
+    },
+  },
+
+  computed: {
+    ...mapGetters(['isAuth', 'currentUserId']),
+  },
+
+  methods: {
+    async onDeleteComment() {
+      const deletedComment = await CommentsService.delete(this.commentId)
+
+      this.$emit('comment-deleted', deletedComment)
     },
   },
 }
@@ -64,7 +95,26 @@ export default {
   }
 
   &__right-box {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
     border-bottom: 1px solid #23243e;
+  }
+}
+
+.delete-comment-button {
+  align-self: center;
+  border: none;
+  color: #fff;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: all 0.2s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: #2a719d33;
+    }
   }
 }
 </style>
