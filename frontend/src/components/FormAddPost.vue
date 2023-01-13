@@ -85,7 +85,6 @@ export default {
       }
 
       const { data: createdPost } = await PostsService.create(newPostData)
-      console.log(createdPost)
 
       const adaptedNewPost = usePostAdapter(createdPost)
 

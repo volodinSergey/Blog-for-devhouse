@@ -46,6 +46,7 @@
       <PostDelete
         v-if="isAuth && currentUserId === post.author.id"
         :postId="post.id"
+        @post-deleted="postDeleted"
       />
     </div>
 
@@ -141,6 +142,10 @@ export default {
 
     handleDeletingComment(index) {
       this.$delete(this.comments, index)
+    },
+
+    postDeleted() {
+      this.$emit('post-deleted')
     },
   },
 }

@@ -66,9 +66,9 @@ export default {
 
   methods: {
     async onDeleteComment() {
-      const deletedComment = await CommentsService.delete(this.commentId)
+      await CommentsService.delete(this.commentId)
 
-      this.$emit('comment-deleted', deletedComment)
+      this.$emit('comment-deleted')
     },
   },
 }

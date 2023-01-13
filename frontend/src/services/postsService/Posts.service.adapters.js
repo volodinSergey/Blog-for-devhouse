@@ -23,6 +23,7 @@ export const usePostAdapter = post => {
 
 export const useAllPostsAdapter = data => {
 
+    // !To refactor!
     const adaptedPosts = data.map(post => ({
         id: post.id,
         title: post.title,
