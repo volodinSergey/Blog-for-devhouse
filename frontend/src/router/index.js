@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import authModule from '@/store/modules/auth.module'
-
 import RegisterView from '@/views/RegisterView'
 import LoginView from '@/views/LoginView'
 import PostsView from '@/views/PostsView.vue'
@@ -33,6 +31,12 @@ const routes = [
     path: '/posts',
     name: 'postsView',
     component: PostsView
+  },
+
+  {
+    path: '/users',
+    name: 'usersView',
+    component: () => import('@/views/UsersView.vue'),
   },
 
   {

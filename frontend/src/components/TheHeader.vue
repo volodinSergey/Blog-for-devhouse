@@ -5,6 +5,12 @@
         <BaseLogo />
 
         <div class="header-box__right">
+          <router-link
+            v-if="isAuth"
+            :to="{ name: 'usersView' }"
+            >All users</router-link
+          >
+
           <TheHeaderUserInfoPanel />
 
           <AuthButtonsGroup />
@@ -29,10 +35,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      isAuth: 'isAuth',
-      user: 'user',
-    }),
+    ...mapGetters(['isAuth', 'user']),
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
