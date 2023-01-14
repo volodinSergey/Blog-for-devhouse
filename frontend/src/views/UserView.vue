@@ -16,8 +16,8 @@
 
         <div class="user-box__content">
           <PostsList
-            v-if="this.posts?.length"
-            :posts="this.posts"
+            v-if="this.userPosts?.length"
+            :posts="this.userPosts"
           />
           <div v-else>No posts here yet ....</div>
         </div>
@@ -30,6 +30,7 @@
 import { mapGetters } from 'vuex'
 
 import UsersService from '@/services/usersService/Users.service'
+import PostsService from '@/services/postsService/Posts.service'
 
 import PostsList from '@/components/PostsList.vue'
 import UserDetailsPanel from '@/components/UserDetailsPanel.vue'
@@ -47,31 +48,19 @@ export default {
   data() {
     return {
       userInfo: {},
-      posts: [],
+      userPosts: [],
     }
   },
 
   created() {
-    UsersService.getOne(this.$route.params.id).then(userData => {
-      const { id, username, avatar, posts } = userData
+    UsersService.getOne(this.$route.params.id).then(userInfo => (this.userInfo = userInfo))
 
-      const userInfo = {
-        id,
-        username,
-        avatar,
-      }
-
-      this.userInfo = userInfo
-
-      const sortedPosts = posts.sort((prev, next) => next.id - prev.id)
-
-      this.posts = sortedPosts
-    })
+    PostsService.getUserPosts(this.$route.params.id).then(userPosts => (this.userPosts = userPosts))
   },
 
   methods: {
     setPosts(newPostData) {
-      this.posts = [newPostData, ...this.posts]
+      this.userPosts = [newPostData, ...this.userPosts]
     },
   },
 

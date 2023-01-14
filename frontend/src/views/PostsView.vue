@@ -3,7 +3,7 @@
     <div class="container">
       <div class="posts__box">
         <PostsList
-          v-if="posts"
+          v-if="posts?.length"
           :posts="posts"
         />
         <span v-else>No posts here</span>
@@ -15,10 +15,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
 import PostsList from '@/components/PostsList.vue'
 import PostsActions from '@/components/PostsActions.vue'
+import PostsService from '@/services/postsService/Posts.service'
 
 export default {
   name: 'PostsView',
@@ -28,16 +27,15 @@ export default {
     PostsActions,
   },
 
+  data() {
+    return {
+      posts: [],
+    }
+  },
+
   created() {
-    this.getAllPosts()
-  },
-
-  computed: {
-    ...mapGetters(['posts']),
-  },
-
-  methods: {
-    ...mapActions(['getAllPosts']),
+    PostsService.getAll().then(posts => (this.posts = posts))
+    // this.getAllPosts()
   },
 }
 </script>

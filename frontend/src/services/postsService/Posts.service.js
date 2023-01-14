@@ -4,7 +4,7 @@ import { useAllPostsAdapter } from '@/services/postsService/Posts.service.adapte
 
 const PostsService = {
     getAll: async () => {
-        const { data } = await Axios.get('/api/posts?populate[image]=*&populate[author][populate][0]=avatar')
+        const { data } = await Axios.get('/api/posts')
 
         const adaptedPosts = useAllPostsAdapter(data)
 
@@ -12,8 +12,9 @@ const PostsService = {
     },
 
     getOne: async (id) => {
-        const { data } = await Axios.get(`/api/posts/${id}?populate=*`)
+        const { data } = await Axios.get(`/api/posts/${id}`)
 
+        // !To do post adapter
         const adaptedPost = {
             title: data.data.attributes.title,
             body: data.data.attributes.body,
@@ -23,6 +24,14 @@ const PostsService = {
         }
 
         return adaptedPost
+    },
+
+    getUserPosts: async (userId) => {
+        const { data } = await Axios.get(`/api/posts/user/${userId}`)
+
+        const adaptedPosts = useAllPostsAdapter(data)
+
+        return adaptedPosts
     },
 
     create: async (newPostData) => await Axios.post('/api/posts', newPostData),

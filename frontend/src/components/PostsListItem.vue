@@ -18,7 +18,7 @@
           alt="user avatar"
         />
 
-        <span class="author-info-name">{{ post.author }}</span>
+        <span class="author-info-name">{{ post.author.name }}</span>
       </div>
 
       <h2 class="post-item__title">{{ post.title }}</h2>
@@ -38,13 +38,29 @@
     </div>
 
     <div class="post-item__actions">
-      <PostLike
+      <!-- <PostLike
         @click="liking"
         :postId="post.id"
-      />
+      /> -->
+
       <PostDelete
-        v-if="isAuth && currentUserId == post.authorId"
+        v-if="isAuth && currentUserId === post.author.id"
         :postId="post.id"
+        @post-deleted="postDeleted"
+      />
+    </div>
+
+    <div class="post-item__comments-section">
+      <CommentsList
+        v-if="comments"
+        :comments="comments"
+        @comment-deleted="handleDeletingComment"
+      />
+
+      <FormAddComment
+        v-if="isAuth"
+        :post-id="post.id"
+        @comment-added="handleAddingComment"
       />
     </div>
   </li>
@@ -53,22 +69,35 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import PostLike from './PostLike.vue'
-import PostDelete from './PostDelete.vue'
+import CommentsList from '@/components/CommentsList.vue'
+import FormAddComment from '@/components/FormAddComment.vue'
+// import PostLike from './PostLike.vue'
+import PostDelete from '@/components/PostDelete.vue'
 
 export default {
   name: 'PostsListItem',
 
   components: {
-    PostLike,
+    // PostLike,
     PostDelete,
+    CommentsList,
+    FormAddComment,
   },
-
   props: {
     post: {
       type: Object,
       required: true,
     },
+
+    data() {
+      return {
+        comments: [],
+      }
+    },
+  },
+
+  created() {
+    this.comments = this.post.comments
   },
 
   computed: {
@@ -83,7 +112,7 @@ export default {
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
 
-      if (this.post.authorAvatar) return `${baseUrl}${this.post.authorAvatar}`
+      if (this.post.author.avatar) return `${baseUrl}${this.post.author.avatar}`
 
       return false
     },
@@ -104,7 +133,19 @@ export default {
     },
 
     goToAuthorPage() {
-      this.$router.push({ name: 'userView', params: { id: this.post.authorId } })
+      this.$router.push({ name: 'userView', params: { id: this.post.author.id } })
+    },
+
+    handleAddingComment(createdComment) {
+      this.comments.push(createdComment)
+    },
+
+    handleDeletingComment(index) {
+      this.$delete(this.comments, index)
+    },
+
+    postDeleted() {
+      this.$emit('post-deleted')
     },
   },
 }
@@ -129,11 +170,13 @@ export default {
   &__image {
     width: 100%;
     margin-bottom: 15px;
+    border-radius: 10px;
   }
 
   &__actions {
     display: inline-flex;
     gap: 25px;
+    margin-bottom: 1rem;
   }
 }
 
@@ -148,6 +191,26 @@ export default {
     width: 50px;
     aspect-ratio: 1;
     border-radius: 50%;
+  }
+}
+
+.show-comments-button {
+  display: block;
+  font-size: 1.2rem;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #fff;
+  transition: 0.2s;
+  width: 100%;
+  text-align: left;
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: #00000026;
+    }
   }
 }
 </style>

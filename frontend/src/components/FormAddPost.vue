@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent
+    @submit.prevent="onCreatePost"
     class="add-post-form"
   >
     <BaseTextField
@@ -34,17 +34,15 @@
       />
     </div>
 
-    <BaseButton
-      type="submit"
-      @click="onCreatePost"
-      >Add post</BaseButton
-    >
+    <BaseButton type="submit">Add post</BaseButton>
   </form>
 </template>
 
 <script>
 import PostsService from '@/services/postsService/Posts.service'
 import MediaService from '@/services/mediaService/Media.service'
+
+import { usePostAdapter } from '@/services/postsService/Posts.service.adapters'
 
 export default {
   name: 'FormAddPost',
@@ -88,17 +86,7 @@ export default {
 
       const { data: createdPost } = await PostsService.create(newPostData)
 
-      const adaptedNewPost = {
-        id: createdPost.id,
-        title: createdPost.title,
-        body: createdPost.body,
-        likes: createdPost.likes || 0,
-        liked: createdPost.liked,
-        image: createdPost.image?.url || null,
-        author: createdPost.author.username,
-        authorId: createdPost.author.id,
-        authorAvatar: createdPost.author.avatar?.url,
-      }
+      const adaptedNewPost = usePostAdapter(createdPost)
 
       this.$emit('post-created', adaptedNewPost)
 
