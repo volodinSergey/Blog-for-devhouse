@@ -4,14 +4,29 @@ import { useGetLikesAdapter, useLikeStatusAdapter } from "@/services/likesServic
 
 const LikesService = {
     getLikesCountByPostId: async (postId) => {
-        const likesCount = await Axios.get(`api/likes/count/${postId}`)
+        const { data: likesCount } = await Axios.get(`api/likes/count/${postId}`)
 
         return likesCount
     },
 
     createLike: async (postId) => {
-        await Axios.post(`api/likes/${postId}`)
+        const response = await Axios.post(`api/likes/${postId}`)
+
+        console.log(response)
     },
+
+
+    deleteLike: async (postId) => {
+        const response = await Axios.delete(`/likes/delete/${postId}`)
+
+        console.log(response)
+    },
+
+
+
+
+
+
 
     getLikes: async (id) => {
         const { data } = await Axios.get(`/api/posts/${id}?populate[0]=liked`)

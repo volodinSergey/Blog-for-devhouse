@@ -34,5 +34,28 @@ module.exports = createCoreController('api::like.like', ({ strapi }) => ({
         });
 
         return like
+    },
+
+    async deleteLike(ctx) {
+        const userId = ctx.state.user.id
+        const postId = ctx.params.postId
+
+        const findedLikeToDelete = await strapi.entityService.findMany('api::like.like', {
+            filters: {
+                post: {
+                    id: postId
+                },
+
+                user: {
+                    id: userId
+                }
+            }
+        })
+
+        const likeIdToDelete = findedLikeToDelete[0].id
+
+        const deletedLike = await strapi.entityService.delete("api::like.like", likeIdToDelete)
+
+        return deletedLike
     }
 }));

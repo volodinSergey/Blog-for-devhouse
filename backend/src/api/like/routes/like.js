@@ -31,6 +31,12 @@ const myExtraRoutes = [
         method: 'POST',
         path: '/likes/:postId',
         handler: 'api::like.like.createLike',
+    },
+
+    {
+        method: 'DELETE',
+        path: '/likes/delete/:postId',
+        handler: 'api::like.like.deleteLike',
     }
 ];
 

@@ -24,7 +24,7 @@
           />
         </g>
       </svg>
-      <span class="like-button__likes-counter">{{ likes }}</span>
+      <span class="like-button__likes-counter">{{ likesCount }}</span>
     </div>
   </button>
 </template>
@@ -43,16 +43,13 @@ export default {
   },
 
   created() {
-    LikesService.getLikes(this.postId).then(({ likeStatus, likesCount }) => {
-      this.liked = likeStatus
-      this.likes = likesCount
-    })
+    LikesService.getLikesCountByPostId(this.postId).then(likesCount => (this.likesCount = likesCount))
   },
 
   data() {
     return {
       liked: null,
-      likes: null,
+      likesCount: null,
     }
   },
 
@@ -60,10 +57,11 @@ export default {
     async onClickLike() {
       this.liked = !this.liked
 
-      const { likeStatus, likesCount } = await LikesService.like(this.postId, this.liked)
+      await LikesService.createLike(this.postId)
+      // await LikesService.getLikesCountByPostId(this.postId).then(likesCount => (this.likesCount = likesCount))
 
-      this.liked = likeStatus
-      this.likes = likesCount
+      // this.liked = likeStatus
+      // this.likes = likesCount
     },
   },
 }
