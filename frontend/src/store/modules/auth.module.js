@@ -4,22 +4,22 @@ const state = {
     isLoading: false,
     user: null,
     token: null,
-    // role: null
+    role: null
 }
 
 const getters = {
     isAuth: state => Boolean(state.user),
+    isAdmin: state => state.role === 'Admin',
     user: state => state.user,
-    currentUserId: state => state.user.id
-    // ownerId: state => state.user.id,
-    // userRole: state => state.role
+    currentUserId: state => state.user.id,
+
 }
 
 const mutations = {
     setIsLoading: (state, loadingPayload) => state.isLoading = loadingPayload,
     setUser: (state, userPayload) => state.user = userPayload,
     setToken: (state, tokenPayload) => state.token = tokenPayload,
-    // setRole: (state, rolePayload) => state.role = rolePayload,
+    setRole: (state, rolePayload) => state.role = rolePayload,
 }
 
 const actions = {
@@ -54,8 +54,11 @@ const actions = {
                 localStorage.setItem('jwt', res.data.jwt)
             }
 
+            const currentUser = await AuthService.getMe()
+            const userRole = currentUser.role.name
+
             commit('setUser', res.data.user)
-            // commit('setRole', role)
+            commit('setRole', userRole)
             commit('setToken', res.data.jwt)
             commit('setIsLoading', false)
         } catch (err) {
