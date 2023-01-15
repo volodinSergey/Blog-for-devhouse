@@ -37,7 +37,16 @@ const myExtraRoutes = [
         method: 'DELETE',
         path: '/likes/delete/:postId',
         handler: 'api::like.like.deleteLike',
+    },
+
+    {
+        method: 'GET',
+        path: '/likes/is-exists/:postId',
+        handler: 'api::like.like.isLikeExists',
     }
+
+
+
 ];
 
 module.exports = customRouter(defaultRouter, myExtraRoutes);
