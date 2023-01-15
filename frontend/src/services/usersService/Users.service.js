@@ -1,12 +1,14 @@
 import Axios from "@/api/axios";
 
-import { useGetOneAdapter } from "@/services/usersService/Users.service.adapters";
+import { useGetOneAdapter, useAllUsersAdapter } from "@/services/usersService/Users.service.adapters";
 
 const UsersService = {
     getAll: async () => {
-        const { data } = await Axios.get('/api/users')
+        const { data } = await Axios.get('/api/users?populate=*')
 
-        return data
+        const adaptedUsers = useAllUsersAdapter(data)
+
+        return adaptedUsers
     },
 
     getOne: async (id) => {
@@ -17,6 +19,7 @@ const UsersService = {
         return adaptedUser
     },
 
+    deleteUser: async (id) => await Axios.delete(`/api/users-permissions/users/${id}`)
 }
 
 export default UsersService

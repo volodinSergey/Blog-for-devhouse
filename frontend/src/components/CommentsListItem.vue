@@ -4,8 +4,15 @@
       <router-link :to="{ name: 'userView', params: { id: authorId } }">
         <img
           class="comment-item__avatar"
-          :src="`http://localhost:1337${avatar}`"
-          alt="comment author"
+          v-if="fullAvatarUrl"
+          :src="fullAvatarUrl"
+          alt="user avatar"
+        />
+        <img
+          class="comment-item__avatar"
+          v-else
+          src="@/assets/no-avatar.jpg"
+          alt="user avatar"
         />
       </router-link>
     </div>
@@ -94,6 +101,14 @@ export default {
 
   computed: {
     ...mapGetters(['isAuth', 'currentUserId']),
+
+    fullAvatarUrl() {
+      const baseUrl = 'http://localhost:1337'
+
+      if (this.avatar) return `${baseUrl}${this.avatar}`
+
+      return false
+    },
   },
 
   methods: {
