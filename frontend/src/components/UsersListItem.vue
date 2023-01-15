@@ -21,12 +21,14 @@
     </router-link>
 
     <div class="users-list-item__right-box">
-      <button class="delete-user-button">Delete user</button>
+      <BaseButton @click="onDeleteUser">Delete user</BaseButton>
     </div>
   </li>
 </template>
 
 <script>
+import UsersService from '@/services/usersService/Users.service'
+
 export default {
   name: 'UsersListItem',
 
@@ -55,6 +57,14 @@ export default {
       return false
     },
   },
+
+  methods: {
+    async onDeleteUser() {
+      await UsersService.deleteUser(this.id)
+
+      this.$emit('user-deleted')
+    },
+  },
 }
 </script>
 
@@ -81,14 +91,6 @@ export default {
     padding-right: 10px;
   }
 }
-
-.delete-user-button {
-  font-size: 1.1rem;
-  color: #fff;
-  border: none;
-  background: transparent;
-}
-
 .user-avatar {
   width: 50px;
   aspect-ratio: 1;

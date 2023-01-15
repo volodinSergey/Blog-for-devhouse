@@ -1,11 +1,12 @@
 <template>
   <ul class="users-list">
     <UsersListItem
-      v-for="user in users"
+      v-for="(user, index) in users"
       :key="user.id"
       :id="user.id"
       :name="user.name"
       :avatar="user.avatar"
+      @user-deleted="userDeleted(index)"
     />
   </ul>
 </template>
@@ -24,6 +25,12 @@ export default {
       required: true,
     },
   },
+
+  methods: {
+    userDeleted(index) {
+        this.$emit('user-deleted', index)
+    }
+  }
 }
 </script>
 

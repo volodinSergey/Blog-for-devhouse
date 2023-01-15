@@ -19,6 +19,7 @@ const UsersService = {
         return adaptedUser
     },
 
+    deleteUser: async (id) => await Axios.delete(`/api/users-permissions/users/${id}`)
 }
 
 export default UsersService

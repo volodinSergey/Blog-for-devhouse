@@ -3,7 +3,10 @@
     <div class="container">
       <h1 class="heading">All users</h1>
 
-      <UsersList :users="users" />
+      <UsersList
+        :users="users"
+        @user-deleted="handleDeletingUser"
+      />
     </div>
   </section>
 </template>
@@ -28,6 +31,12 @@ export default {
 
   created() {
     UsersService.getAll().then(usersData => (this.users = usersData))
+  },
+
+  methods: {
+    handleDeletingUser(index) {
+      this.$delete(this.users, index)
+    },
   },
 }
 </script>
