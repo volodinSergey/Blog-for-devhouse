@@ -34,12 +34,6 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "posts"
     },
-    "likes": {
-      "type": "integer",
-      "required": true,
-      "min": 0,
-      "default": 0
-    },
     "liked": {
       "type": "boolean",
       "default": false,
@@ -49,6 +43,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comment.comment",
+      "mappedBy": "post"
+    },
+    "likes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::like.like",
       "mappedBy": "post"
     }
   }

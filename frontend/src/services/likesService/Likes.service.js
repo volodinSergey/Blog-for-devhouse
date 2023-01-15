@@ -4,7 +4,7 @@ import { useGetLikesAdapter, useLikeStatusAdapter } from "@/services/likesServic
 
 const LikesService = {
     getLikes: async (id) => {
-        const { data } = await Axios.get(`/api/posts/${id}?populate=*`)
+        const { data } = await Axios.get(`/api/posts/${id}?populate[0]=liked`)
 
         const { likesCount, likeStatus } = useGetLikesAdapter(data)
 
@@ -14,18 +14,18 @@ const LikesService = {
         }
     },
 
-    like: async (id, likeStatus) => {
+    like: async (id, like) => {
         const dataToPut = {
             data: {
-                liked: likeStatus
+                liked: like
             }
         }
 
-        const postWithUpdatedLike = await Axios.put(`/api/posts/${id}`, dataToPut)
+        const { data } = await Axios.put(`/api/posts/${id}`, dataToPut)
 
-        const { isLiked, likes } = useLikeStatusAdapter(postWithUpdatedLike)
+        const { likeStatus, likesCount } = useLikeStatusAdapter(data)
 
-        return { isLiked, likes }
+        return { likeStatus, likesCount }
     }
 }
 

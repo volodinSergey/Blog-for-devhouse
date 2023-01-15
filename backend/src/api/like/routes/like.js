@@ -1,12 +1,11 @@
 'use strict';
 
 /**
- * post router
+ * like router
  */
 
-
 const { createCoreRouter } = require('@strapi/strapi').factories;
-const defaultRouter = createCoreRouter('api::post.post');
+const defaultRouter = createCoreRouter('api::like.like');
 
 const customRouter = (innerRouter, extraRoutes = []) => {
     let routes;
@@ -24,8 +23,8 @@ const customRouter = (innerRouter, extraRoutes = []) => {
 const myExtraRoutes = [
     {
         method: 'GET',
-        path: '/posts/user/:userId',
-        handler: 'api::post.post.findUserPosts',
+        path: '/likes/count/:postId',
+        handler: 'api::like.like.getAllCount',
     }
 ];
 

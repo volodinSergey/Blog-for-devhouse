@@ -1,7 +1,7 @@
 <template>
   <button
     class="like-button"
-    @click="onClick"
+    @click="onClickLike"
   >
     <div class="like-button__inner">
       <svg
@@ -42,27 +42,25 @@ export default {
     },
   },
 
-  async created() {
-    const { likesCount, likeStatus } = await LikesService.getLikes(this.postId)
-
-    this.liked = likeStatus
-    this.likes = likesCount
+  created() {
+    LikesService.getLikes(this.postId).then(({ likeStatus, likesCount }) => {
+      this.liked = likeStatus
+      this.likes = likesCount
+    })
   },
 
   data() {
     return {
-      liked: false,
+      liked: null,
       likes: null,
     }
   },
 
   methods: {
-    async onClick() {
+    async onClickLike() {
       this.liked = !this.liked
 
-      this.$emit('click', this.liked)
-
-      const { likesCount, likeStatus } = await LikesService.getLikes(this.postId)
+      const { likeStatus, likesCount } = await LikesService.like(this.postId, this.liked)
 
       this.liked = likeStatus
       this.likes = likesCount

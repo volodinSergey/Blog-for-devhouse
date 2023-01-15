@@ -38,10 +38,7 @@
     </div>
 
     <div class="post-item__actions">
-      <!-- <PostLike
-        @click="liking"
-        :postId="post.id"
-      /> -->
+      <PostLike :postId="post.id" />
 
       <PostDelete
         v-if="(isAuth && currentUserId === post.author.id) || isAdmin"
@@ -67,18 +64,18 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 import CommentsList from '@/components/CommentsList.vue'
 import FormAddComment from '@/components/FormAddComment.vue'
-// import PostLike from './PostLike.vue'
+import PostLike from '@/components/PostLike.vue'
 import PostDelete from '@/components/PostDelete.vue'
 
 export default {
   name: 'PostsListItem',
 
   components: {
-    // PostLike,
+    PostLike,
     PostDelete,
     CommentsList,
     FormAddComment,
@@ -119,8 +116,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['like']),
-
     liking(likeStatus) {
       const likeStatusPayload = {
         postId: this.post.id,
@@ -128,8 +123,6 @@ export default {
       }
 
       if (!this.isAuth) this.$router.push({ name: 'loginView' })
-
-      this.like(likeStatusPayload)
     },
 
     goToAuthorPage() {

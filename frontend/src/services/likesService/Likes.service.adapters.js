@@ -1,6 +1,6 @@
 export const useGetLikesAdapter = (data) => {
-    const likesCount = data.data.attributes.likes
-    const likeStatus = data.data.attributes.liked
+    const likesCount = data.likes
+    const likeStatus = data.liked
 
     return {
         likesCount,
@@ -8,13 +8,12 @@ export const useGetLikesAdapter = (data) => {
     }
 }
 
-export const useLikeStatusAdapter = (postWithUpdatedLike) => {
-    const isLiked = postWithUpdatedLike.data.liked
-    const likes = postWithUpdatedLike.data.likes
-
+export const useLikeStatusAdapter = (data) => {
+    const likeStatus = data.liked
+    const likesCount = data.likes
 
     return {
-        isLiked,
-        likes
+        likeStatus,
+        likesCount
     }
 }
