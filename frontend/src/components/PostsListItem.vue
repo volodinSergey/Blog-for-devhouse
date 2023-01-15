@@ -44,7 +44,7 @@
       /> -->
 
       <PostDelete
-        v-if="isAuth && currentUserId === post.author.id"
+        v-if="(isAuth && currentUserId === post.author.id) || isAdmin"
         :postId="post.id"
         @post-deleted="postDeleted"
       />
@@ -101,7 +101,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth', 'currentUserId']),
+    ...mapGetters(['isAuth', 'currentUserId', 'isAdmin']),
 
     fullPostImageUrl() {
       const baseUrl = 'http://localhost:1337'

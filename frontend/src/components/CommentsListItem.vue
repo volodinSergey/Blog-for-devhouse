@@ -38,7 +38,7 @@
 
       <div class="comment-actions">
         <button
-          v-if="isAuth && authorId === currentUserId"
+          v-if="(isAuth && authorId === currentUserId) || isAdmin"
           class="comment-actions__delete-comment-button"
           @click="onDeleteComment"
         >
@@ -100,7 +100,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth', 'currentUserId']),
+    ...mapGetters(['isAuth', 'currentUserId', 'isAdmin']),
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
