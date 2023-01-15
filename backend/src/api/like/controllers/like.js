@@ -20,5 +20,19 @@ module.exports = createCoreController('api::like.like', ({ strapi }) => ({
 
 
         return likesCount
+    },
+
+    async createLike(ctx) {
+        const userId = ctx.state.user.id
+        const postId = ctx.params.postId
+
+        const like = await strapi.entityService.create('api::like.like', {
+            data: {
+                user: userId,
+                post: postId
+            },
+        });
+
+        return like
     }
 }));

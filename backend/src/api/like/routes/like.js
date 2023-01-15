@@ -25,6 +25,12 @@ const myExtraRoutes = [
         method: 'GET',
         path: '/likes/count/:postId',
         handler: 'api::like.like.getAllCount',
+    },
+
+    {
+        method: 'POST',
+        path: '/likes/:postId',
+        handler: 'api::like.like.createLike',
     }
 ];
 

@@ -3,6 +3,16 @@ import Axios from "@/api/axios"
 import { useGetLikesAdapter, useLikeStatusAdapter } from "@/services/likesService/Likes.service.adapters"
 
 const LikesService = {
+    getLikesCountByPostId: async (postId) => {
+        const likesCount = await Axios.get(`api/likes/count/${postId}`)
+
+        return likesCount
+    },
+
+    createLike: async (postId) => {
+        await Axios.post(`api/likes/${postId}`)
+    },
+
     getLikes: async (id) => {
         const { data } = await Axios.get(`/api/posts/${id}?populate[0]=liked`)
 
