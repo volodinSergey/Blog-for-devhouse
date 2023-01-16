@@ -45,7 +45,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['register', 'getMe']),
+    ...mapActions(['register']),
 
     async onRegister() {
       const registrationData = {
@@ -55,7 +55,6 @@ export default {
       }
 
       await this.register(registrationData)
-      await this.getMe()
 
       this.$router.push({ name: 'postsView' })
     },

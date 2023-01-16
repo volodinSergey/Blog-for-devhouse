@@ -1,7 +1,7 @@
 <template>
   <router-link
     v-if="isAuth"
-    :to="{ name: 'userView', params: { id: user.id } }"
+    :to="{ name: 'userView', params: { id:  currentUser.id } }"
     class="user-info"
   >
     <img
@@ -17,7 +17,7 @@
       alt="user avatar"
     />
 
-    <span class="user-info__name">{{ user.username }}</span>
+    <span class="user-info__name">{{  currentUser.username }}</span>
   </router-link>
 </template>
 
@@ -30,12 +30,12 @@ export default {
   computed: {
     ...mapGetters({
       isAuth: 'isAuth',
-      user: 'user',
+      currentUser: 'currentUser',
     }),
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
-      if (this.user?.avatar?.url) return `${baseUrl}${this.user?.avatar?.url}`
+      if (this.currentUser?.avatar?.url) return `${baseUrl}${this.currentUser?.avatar?.url}`
 
       return false
     },

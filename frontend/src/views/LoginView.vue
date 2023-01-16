@@ -39,7 +39,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['login', 'getMe']),
+    ...mapActions(['login']),
 
     async onLogin() {
       const loginData = {
@@ -48,8 +48,6 @@ export default {
       }
 
       await this.login(loginData)
-
-      await this.getMe()
 
       this.$router.push({ name: 'postsView' })
     },

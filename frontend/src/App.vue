@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TheHeader from './components/TheHeader.vue'
+import TheHeader from '@/components/TheHeader.vue'
 
 import { mapActions } from 'vuex'
 
@@ -21,11 +21,11 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem('jwt')) this.getMe()
+    if (localStorage.getItem('jwtToken')) this.getCurrentUser()
   },
 
   methods: {
-    ...mapActions(['getMe']),
+    ...mapActions(['getCurrentUser']),
   },
 }
 </script>

@@ -5,7 +5,7 @@ const Axios = axios.create({
 })
 
 Axios.interceptors.request.use(config => {
-    const existingToken = localStorage.getItem('jwt')
+    const existingToken = localStorage.getItem('jwtToken')
     const tokenForHeaders = existingToken ? `Bearer ${existingToken}` : ''
 
     config.headers.Authorization = tokenForHeaders

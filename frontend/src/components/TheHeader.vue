@@ -35,14 +35,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth', 'user']),
-
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-      if (this.user?.avatar?.url) return `${baseUrl}${this.user?.avatar?.url}`
-
-      return false
-    },
+    ...mapGetters(['isAuth']),
   },
 
   methods: {
