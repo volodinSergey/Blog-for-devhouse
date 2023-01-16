@@ -32,6 +32,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { actionTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'RegisterView',
@@ -45,7 +46,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['register', 'getMe']),
+    ...mapActions({
+      REGISTER: actionTypes.REGISTER,
+    }),
 
     async onRegister() {
       const registrationData = {
@@ -54,8 +57,7 @@ export default {
         password: this.password,
       }
 
-      await this.register(registrationData)
-      await this.getMe()
+      await this.REGISTER(registrationData)
 
       this.$router.push({ name: 'postsView' })
     },

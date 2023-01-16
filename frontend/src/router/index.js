@@ -52,7 +52,7 @@ const router = new VueRouter({
   routes,
 })
 
-// const isAuth = authModule.getters.isAuth
+//  const isAuth = authModule.getters.isAuth
 
 // router.beforeEach((to, from, next) => {
 //   const isRouteRequiresAuth = to.matched.some(routeRecord => routeRecord.meta.auth)

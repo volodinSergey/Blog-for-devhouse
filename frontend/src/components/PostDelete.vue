@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 import PostsService from '@/services/postsService/Posts.service'
 
 export default {
@@ -47,8 +45,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['deletePost']),
-
     async onDelete() {
       await PostsService.delete(this.postId)
 

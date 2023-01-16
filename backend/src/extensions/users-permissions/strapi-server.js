@@ -21,12 +21,14 @@ module.exports = (plugin) => {
         const userIdToDelete = ctx.request.params.id
 
         const deletedUser = await strapi.entityService.delete("plugin::users-permissions.user", userIdToDelete, {
-            populate: ['posts', 'comments']
+            populate: ['posts', 'comments', 'likes']
         });
 
         deletedUser.posts.forEach(post => strapi.entityService.delete("api::post.post", post.id))
 
         deletedUser.comments.forEach(comment => strapi.entityService.delete("api::comment.comment", comment.id))
+
+        deletedUser.likes.forEach(like => strapi.entityService.delete("api::like.like", like.id))
 
         return deletedUser
 

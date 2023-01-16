@@ -4,12 +4,12 @@
     class="add-post-form"
   >
     <BaseTextField
-      v-model="title"
+      v-model.trim="title"
       placeholder="Type post title"
     />
     <BaseTextField
       textareaMode
-      v-model="body"
+      v-model.trim="body"
       placeholder="Type post body"
     />
 

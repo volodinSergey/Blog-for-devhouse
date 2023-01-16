@@ -1,7 +1,7 @@
 <template>
   <form class="add-comment-form">
     <BaseTextField
-      v-model="commentBody"
+      v-model.trim="commentBody"
       placeholder="Add your comment"
     />
 

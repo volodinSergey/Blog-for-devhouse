@@ -9,9 +9,10 @@
 </template>
 
 <script>
-import TheHeader from './components/TheHeader.vue'
+import TheHeader from '@/components/TheHeader.vue'
 
 import { mapActions } from 'vuex'
+import { actionTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'App',
@@ -21,11 +22,13 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem('jwt')) this.getMe()
+    if (localStorage.getItem('jwtToken')) this.GET_CURRENT_USER()
   },
 
   methods: {
-    ...mapActions(['getMe']),
+    ...mapActions({
+      GET_CURRENT_USER: actionTypes.GET_CURRENT_USER,
+    }),
   },
 }
 </script>

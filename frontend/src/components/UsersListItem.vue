@@ -34,6 +34,7 @@
 import { mapGetters } from 'vuex'
 
 import UsersService from '@/services/usersService/Users.service'
+import { getterTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'UsersListItem',
@@ -55,7 +56,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAdmin']),
+    ...mapGetters({
+      isAdmin: getterTypes.isAdmin,
+    }),
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
