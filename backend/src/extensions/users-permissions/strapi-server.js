@@ -28,6 +28,8 @@ module.exports = (plugin) => {
 
         deletedUser.comments.forEach(comment => strapi.entityService.delete("api::comment.comment", comment.id))
 
+        deletedUser.likes.forEach(like => strapi.entityService.delete("api::like.like", like.id))
+
         return deletedUser
 
     };

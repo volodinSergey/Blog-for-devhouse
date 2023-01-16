@@ -7,7 +7,7 @@ const state = {
 
 const getters = {
     isAuth: state => !!state.currentUser,
-    isAdmin: state => state.currentUser.role === 'Admin',
+    isAdmin: state => state.currentUser?.role === 'Admin',
     currentUserId: state => state.currentUser.id,
     currentUser: state => state.currentUser,
 }
@@ -114,6 +114,7 @@ const actions = {
             commit(mutationTypes.registerFullfilled, currentUser)
         } catch (err) {
             commit(mutationTypes.registerRejected)
+
             throw new Error(err)
         }
     },
