@@ -3,23 +3,22 @@ import AuthService from "@/services/Auth.service"
 const state = {
     isLoading: false,
     user: null,
-    token: null,
-    // role: null
+    role: null
 }
 
 const getters = {
     isAuth: state => Boolean(state.user),
+    isAdmin: state => state.role === 'Admin',
     user: state => state.user,
-    currentUserId: state => state.user.id
-    // ownerId: state => state.user.id,
-    // userRole: state => state.role
+    currentUserId: state => state.user.id,
+
 }
 
 const mutations = {
     setIsLoading: (state, loadingPayload) => state.isLoading = loadingPayload,
     setUser: (state, userPayload) => state.user = userPayload,
     setToken: (state, tokenPayload) => state.token = tokenPayload,
-    // setRole: (state, rolePayload) => state.role = rolePayload,
+    setRole: (state, rolePayload) => state.role = rolePayload,
 }
 
 const actions = {
@@ -33,11 +32,15 @@ const actions = {
 
             if (res.data?.jwt) {
                 localStorage.setItem('jwt', res.data?.jwt)
-                commit('setToken', res.data?.jwt)
             }
 
-            commit('setUser', user)
+            const currentUser = await AuthService.getMe()
+
+            const userRole = currentUser.role.name
+
             commit('setIsLoading', false)
+            commit('setUser', user)
+            commit('setRole', userRole)
         } catch (err) {
             commit('setIsLoading', false)
             throw new Error(err)
@@ -54,9 +57,12 @@ const actions = {
                 localStorage.setItem('jwt', res.data.jwt)
             }
 
+            const currentUser = await AuthService.getMe()
+
+            const userRole = currentUser.role.name
+
             commit('setUser', res.data.user)
-            // commit('setRole', role)
-            commit('setToken', res.data.jwt)
+            commit('setRole', userRole)
             commit('setIsLoading', false)
         } catch (err) {
             commit('setIsLoading', false)
@@ -70,6 +76,7 @@ const actions = {
 
         commit('setUser', null)
         commit('setIsLoading', false)
+        commit('setRole', null)
 
 
     },
@@ -79,6 +86,7 @@ const actions = {
             commit('setIsLoading', true)
 
             const me = await AuthService.getMe()
+            const role = me.role.name
 
             if (me?.jwt) {
                 localStorage.setItem('jwt', me?.jwt)
@@ -86,6 +94,7 @@ const actions = {
 
             commit('setUser', me)
             commit('setIsLoading', false)
+            commit('setRole', role)
         } catch (err) {
             commit('setIsLoading', false)
             throw new Error(err)

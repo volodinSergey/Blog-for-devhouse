@@ -60,8 +60,58 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
     },
 
     async find(ctx) {
+        const currentUserId = ctx.state.user?.id
+
+        if (!currentUserId) {
+            const posts = await strapi.entityService.findMany('api::post.post', {
+                sort: { createdAt: 'DESC' },
+
+                populate: {
+                    image: {
+                        fields: ['url']
+                    },
+
+                    author: {
+                        fields: ['id', 'username'],
+
+                        populate: {
+                            avatar: {
+                                fields: ['url']
+                            }
+                        }
+                    },
+
+                    comments: {
+                        populate: {
+                            author: {
+                                fields: ['id', 'username'],
+
+                                populate: {
+                                    avatar: {
+                                        fields: ['url']
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            })
+
+            return posts
+        }
+
         const posts = await strapi.entityService.findMany('api::post.post', {
             sort: { createdAt: 'DESC' },
+
+            filters: {
+                $not: {
+                    author: {
+                        id: currentUserId
+                    }
+                }
+            },
 
             populate: {
                 image: {
@@ -200,5 +250,17 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
 
 
         return postToUpdate
+    },
+
+    async delete(ctx) {
+        const postIdToDelete = ctx.request.params.id
+
+        const deletedPost = await strapi.entityService.delete("api::post.post", postIdToDelete, {
+            populate: ['comments']
+        });
+
+        deletedPost.comments.forEach(comment => strapi.entityService.delete('api::comment.comment', comment.id))
+
+        return deletedPost
     }
 }));

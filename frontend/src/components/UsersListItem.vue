@@ -21,12 +21,18 @@
     </router-link>
 
     <div class="users-list-item__right-box">
-      <BaseButton @click="onDeleteUser">Delete user</BaseButton>
+      <BaseButton
+        v-if="isAdmin"
+        @click="onDeleteUser"
+        >Delete user</BaseButton
+      >
     </div>
   </li>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import UsersService from '@/services/usersService/Users.service'
 
 export default {
@@ -49,6 +55,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['isAdmin']),
+
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'
 

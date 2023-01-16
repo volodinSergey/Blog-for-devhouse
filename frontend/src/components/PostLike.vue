@@ -1,12 +1,12 @@
 <template>
   <button
     class="like-button"
-    @click="onClick"
+    @click="onToggleLike"
   >
     <div class="like-button__inner">
       <svg
         class="like-button__icon"
-        :class="{ 'like-button__icon--liked': liked }"
+        :class="{ 'like-button__icon--liked': isLiked }"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,12 +24,14 @@
           />
         </g>
       </svg>
-      <span class="like-button__likes-counter">{{ likes }}</span>
+      <span class="like-button__likes-counter">{{ likesCount }}</span>
     </div>
   </button>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import LikesService from '@/services/likesService/Likes.service'
 
 export default {
@@ -42,30 +44,50 @@ export default {
     },
   },
 
-  async created() {
-    const { likesCount, likeStatus } = await LikesService.getLikes(this.postId)
+  created() {
+    LikesService.getLikesCountByPostId(this.postId).then(likesCount => (this.likesCount = likesCount))
 
-    this.liked = likeStatus
-    this.likes = likesCount
+    if (this.isAuth) {
+      LikesService.checkExistingLike(this.postId).then(isLikeExists => (this.isLiked = isLikeExists))
+    }
   },
 
   data() {
     return {
-      liked: false,
-      likes: null,
+      isLiked: null,
+      likesCount: null,
     }
   },
 
+  computed: {
+    ...mapGetters(['isAuth']),
+  },
+
   methods: {
-    async onClick() {
-      this.liked = !this.liked
+    async onToggleLike() {
+      if (!this.isAuth) {
+        this.$router.push({ name: 'loginView' })
 
-      this.$emit('click', this.liked)
+        return
+      }
 
-      const { likesCount, likeStatus } = await LikesService.getLikes(this.postId)
+      this.isLiked = !this.isLiked
 
-      this.liked = likeStatus
-      this.likes = likesCount
+      if (this.isLiked) {
+        await LikesService.createLike(this.postId)
+
+        const likesCount = await LikesService.getLikesCountByPostId(this.postId)
+
+        this.likesCount = likesCount
+
+        return
+      }
+
+      await LikesService.deleteLike(this.postId)
+
+      const likesCount = await LikesService.getLikesCountByPostId(this.postId)
+
+      this.likesCount = likesCount
     },
   },
 }

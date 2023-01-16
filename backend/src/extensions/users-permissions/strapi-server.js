@@ -2,8 +2,16 @@
 
 module.exports = (plugin) => {
     plugin.controllers.user.find = async (ctx) => {
+        const currentUserId = ctx.state.user.id
+
         const users = await strapi.entityService.findMany("plugin::users-permissions.user", {
             sort: { createdAt: 'DESC' },
+
+            filters: {
+                $not: {
+                    id: currentUserId,
+                },
+            }
         });
 
         return users
