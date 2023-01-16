@@ -12,6 +12,7 @@
 import TheHeader from '@/components/TheHeader.vue'
 
 import { mapActions } from 'vuex'
+import { actionTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'App',
@@ -21,11 +22,13 @@ export default {
   },
 
   created() {
-    if (localStorage.getItem('jwtToken')) this.getCurrentUser()
+    if (localStorage.getItem('jwtToken')) this.GET_CURRENT_USER()
   },
 
   methods: {
-    ...mapActions(['getCurrentUser']),
+    ...mapActions({
+      GET_CURRENT_USER: actionTypes.GET_CURRENT_USER,
+    }),
   },
 }
 </script>

@@ -70,6 +70,7 @@ import CommentsList from '@/components/CommentsList.vue'
 import FormAddComment from '@/components/FormAddComment.vue'
 import PostLike from '@/components/PostLike.vue'
 import PostDelete from '@/components/PostDelete.vue'
+import { getterTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'PostsListItem',
@@ -98,7 +99,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth', 'currentUserId', 'isAdmin']),
+    ...mapGetters({
+      isAuth: getterTypes.isAuth,
+      currentUserId: getterTypes.currentUserId,
+      isAdmin: getterTypes.isAdmin,
+    }),
 
     fullPostImageUrl() {
       const baseUrl = 'http://localhost:1337'

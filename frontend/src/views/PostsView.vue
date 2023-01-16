@@ -35,7 +35,6 @@ export default {
 
   created() {
     PostsService.getAll().then(posts => (this.posts = posts))
-    // this.getAllPosts()
   },
 }
 </script>

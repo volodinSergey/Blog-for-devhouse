@@ -61,6 +61,7 @@
 import { mapGetters } from 'vuex'
 
 import CommentsService from '@/services/commentsService/Comments.service'
+import { getterTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'CommentsListItem',
@@ -100,7 +101,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth', 'currentUserId', 'isAdmin']),
+    ...mapGetters({
+      isAuth: getterTypes.isAuth,
+      currentUserId: getterTypes.currentUserId,
+      isAdmin: getterTypes.isAdmin,
+    }),
 
     fullAvatarUrl() {
       const baseUrl = 'http://localhost:1337'

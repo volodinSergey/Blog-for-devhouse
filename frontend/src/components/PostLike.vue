@@ -33,6 +33,7 @@
 import { mapGetters } from 'vuex'
 
 import LikesService from '@/services/likesService/Likes.service'
+import { getterTypes } from '@/store/modules/auth/auth.module.types'
 
 export default {
   name: 'PostLikeButton',
@@ -60,7 +61,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth']),
+    ...mapGetters({
+      isAuth: getterTypes.isAuth
+    }),
   },
 
   methods: {

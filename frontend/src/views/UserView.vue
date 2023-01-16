@@ -28,6 +28,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getterTypes } from '@/store/modules/auth/auth.module.types'
 
 import UsersService from '@/services/usersService/Users.service'
 import PostsService from '@/services/postsService/Posts.service'
@@ -60,12 +61,15 @@ export default {
 
   methods: {
     setPosts(newPostData) {
-      this.userPosts = [newPostData, ...this.userPosts]
+      this.userPosts.push(newPostData)
     },
   },
 
   computed: {
-    ...mapGetters(['isAuth', 'currentUserId']),
+    ...mapGetters({
+      isAuth: getterTypes.isAuth,
+      currentUserId: getterTypes.currentUserId,
+    }),
   },
 }
 </script>

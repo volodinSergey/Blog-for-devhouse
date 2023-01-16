@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { actionTypes, getterTypes } from '@/store/modules/auth/auth.module.types'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -23,15 +24,17 @@ export default {
 
   computed: {
     ...mapGetters({
-      isAuth: 'isAuth',
+      isAuth: getterTypes.isAuth,
     }),
   },
 
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions({
+      LOGOUT: actionTypes.LOGOUT,
+    }),
 
     onClickLogoutButton() {
-      this.logout()
+      this.LOGOUT()
 
       this.$router.push({ name: 'loginView' })
     },

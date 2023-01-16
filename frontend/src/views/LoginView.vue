@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { actionTypes } from '@/store/modules/auth/auth.module.types'
 import { mapActions } from 'vuex'
 
 export default {
@@ -39,7 +40,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['login']),
+    ...mapActions({
+      LOGIN: actionTypes.LOGIN,
+    }),
 
     async onLogin() {
       const loginData = {
@@ -47,7 +50,7 @@ export default {
         password: this.password,
       }
 
-      await this.login(loginData)
+      await this.LOGIN(loginData)
 
       this.$router.push({ name: 'postsView' })
     },

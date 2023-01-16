@@ -21,10 +21,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { getterTypes } from '@/store/modules/auth/auth.module.types'
+
 import AuthButtonsGroup from '@/components/AuthButtonsGroup.vue'
 import TheHeaderUserInfoPanel from './TheHeaderUserInfoPanel.vue'
-
-import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TheHeader',
@@ -35,17 +36,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isAuth']),
-  },
-
-  methods: {
-    ...mapActions(['logout']),
-
-    onLogout() {
-      this.logout()
-
-      this.$router.push({ name: 'loginView' })
-    },
+    ...mapGetters({
+      isAuth: getterTypes.isAuth,
+    }),
   },
 }
 </script>
