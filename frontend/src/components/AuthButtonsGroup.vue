@@ -36,15 +36,15 @@ export default {
     onClickLogoutButton() {
       this.LOGOUT()
 
-      this.$router.push({ name: 'loginView' })
+      this.$router.push({ name: this.$routes.LOGIN.name })
     },
 
     onClickRegisterButton() {
-      this.$router.push({ name: 'registerView' })
+      this.$router.push({ name:  this.$routes.REGISTER.name })
     },
 
     onClickLoginButton() {
-      this.$router.push({ name: 'loginView' })
+      this.$router.push({ name: this.$routes.LOGIN.name })
     },
   },
 }

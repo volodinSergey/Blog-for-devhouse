@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import UsersListItem from './UsersListItem.vue'
+import UsersListItem from '@/components/UsersListItem.vue'
 
 export default {
   name: 'UsersList',

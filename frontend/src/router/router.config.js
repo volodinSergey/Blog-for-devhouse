@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const routesConfig = {
     HOME: {
         path: '/',
@@ -36,6 +38,14 @@ const routesConfig = {
 }
 
 const { HOME, REGISTER, LOGIN, POSTS, USERS, USER, NOT_FOUND } = routesConfig
+
+Vue.prototype.$routes = {
+    REGISTER,
+    LOGIN,
+    POSTS,
+    USERS,
+    USER
+}
 
 export const useRoutesConfig = () => {
     return {

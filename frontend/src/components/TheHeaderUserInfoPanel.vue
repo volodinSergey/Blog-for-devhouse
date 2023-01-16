@@ -1,7 +1,7 @@
 <template>
   <router-link
     v-if="isAuth"
-    :to="{ name: 'userView', params: { id: currentUser.id } }"
+    :to="{ name: this.$routes.USER.name, params: { id: currentUser.id } }"
     class="user-info"
   >
     <img
