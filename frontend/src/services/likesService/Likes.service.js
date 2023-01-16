@@ -1,10 +1,8 @@
 import Axios from "@/api/axios"
 
-import { useGetLikesAdapter, useLikeStatusAdapter } from "@/services/likesService/Likes.service.adapters"
-
 const LikesService = {
     checkExistingLike: async (postId) => {
-        const isLikeExists = await Axios.get(`/api/likes/is-exists/${postId}`)
+        const { data: isLikeExists } = await Axios.get(`/api/likes/is-exists/${postId}`)
 
         return isLikeExists
     },
@@ -15,18 +13,9 @@ const LikesService = {
         return likesCount
     },
 
-    createLike: async (postId) => {
-        const response = await Axios.post(`api/likes/${postId}`)
+    createLike: async (postId) => await Axios.post(`api/likes/${postId}`),
 
-        console.log(response)
-    },
-
-
-    deleteLike: async (postId) => {
-        const response = await Axios.delete(`/likes/delete/${postId}`)
-
-        console.log(response)
-    }
+    deleteLike: async (postId) => await Axios.delete(`api/likes/delete/${postId}`)
 }
 
 export default LikesService

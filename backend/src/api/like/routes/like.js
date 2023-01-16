@@ -44,9 +44,6 @@ const myExtraRoutes = [
         path: '/likes/is-exists/:postId',
         handler: 'api::like.like.isLikeExists',
     }
-
-
-
 ];
 
 module.exports = customRouter(defaultRouter, myExtraRoutes);

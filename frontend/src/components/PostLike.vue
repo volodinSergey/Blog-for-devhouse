@@ -1,12 +1,12 @@
 <template>
   <button
     class="like-button"
-    @click="onClickLike"
+    @click="onToggleLike"
   >
     <div class="like-button__inner">
       <svg
         class="like-button__icon"
-        :class="{ 'like-button__icon--liked': liked }"
+        :class="{ 'like-button__icon--liked': isLiked }"
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import LikesService from '@/services/likesService/Likes.service'
 
 export default {
@@ -44,24 +46,48 @@ export default {
 
   created() {
     LikesService.getLikesCountByPostId(this.postId).then(likesCount => (this.likesCount = likesCount))
+
+    if (this.isAuth) {
+      LikesService.checkExistingLike(this.postId).then(isLikeExists => (this.isLiked = isLikeExists))
+    }
   },
 
   data() {
     return {
-      liked: null,
+      isLiked: null,
       likesCount: null,
     }
   },
 
+  computed: {
+    ...mapGetters(['isAuth']),
+  },
+
   methods: {
-    async onClickLike() {
-      this.liked = !this.liked
+    async onToggleLike() {
+      if (!this.isAuth) {
+        this.$router.push({ name: 'loginView' })
 
-      await LikesService.createLike(this.postId)
-      // await LikesService.getLikesCountByPostId(this.postId).then(likesCount => (this.likesCount = likesCount))
+        return
+      }
 
-      // this.liked = likeStatus
-      // this.likes = likesCount
+      this.isLiked = !this.isLiked
+
+      if (this.isLiked) {
+        await LikesService.createLike(this.postId)
+
+        const likesCount = await LikesService.getLikesCountByPostId(this.postId)
+
+        this.likesCount = likesCount
+
+        return
+      }
+
+      await LikesService.deleteLike(this.postId)
+
+      const likesCount = await LikesService.getLikesCountByPostId(this.postId)
+
+      this.likesCount = likesCount
     },
   },
 }
