@@ -1,68 +1,32 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import RegisterView from '@/views/RegisterView'
-import LoginView from '@/views/LoginView'
-import PostsView from '@/views/PostsView.vue'
-
+import routes from '@/router/routes/index'
 
 Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: '/',
-    name: 'postsView',
-    component: PostsView
-  },
-
-  {
-    path: '/login',
-    name: 'loginView',
-    component: LoginView
-  },
-
-  {
-    path: '/register',
-    name: 'registerView',
-    component: RegisterView
-  },
-
-  {
-    path: '/posts',
-    name: 'postsView',
-    component: PostsView
-  },
-
-  {
-    path: '/users',
-    name: 'usersView',
-    component: () => import('@/views/UsersView.vue'),
-  },
-
-  {
-    path: '/users/:id',
-    name: 'userView',
-    component: () => import('@/views/UserView.vue'),
-  },
-]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes
 })
 
-//  const isAuth = authModule.getters.isAuth
 
-// router.beforeEach((to, from, next) => {
-//   const isRouteRequiresAuth = to.matched.some(routeRecord => routeRecord.meta.auth)
+router.beforeEach(async (to, from, next) => {
+  const isRequiresAuth = to.matched.some(record => record.meta.auth)
+  const isRequiresAdminRoots = to.matched.some(record => record.meta.admin)
 
-//   if (isRouteRequiresAuth && !isAuth) {
+  const authGuardsArray = to.meta.guards
 
-//     next('/login')
-//   } else {
-//     next()
-//   }
-// })
+  if (!authGuardsArray) return next()
+
+  const context = {
+    isRequiresAuth,
+    isRequiresAdminRoots,
+    next
+  }
+
+  return authGuardsArray[0]({ ...context })
+})
 
 export default router

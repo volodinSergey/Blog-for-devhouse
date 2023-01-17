@@ -7,7 +7,7 @@
         <div class="header-box__right">
           <router-link
             v-if="isAuth"
-            :to="{ name: 'usersView' }"
+            :to="{ name: this.$routes.USERS.name }"
             >All users</router-link
           >
 

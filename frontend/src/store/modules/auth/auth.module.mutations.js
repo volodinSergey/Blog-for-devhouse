@@ -1,52 +1,52 @@
 import { mutationTypes } from '@/store/modules/auth/auth.module.types'
 
 const mutations = {
-    [mutationTypes.registerPending]: (state) => {
+    [mutationTypes.registerPending](state) {
         state.isLoading = true
         state.currentUser = null
     },
 
-    [mutationTypes.registerFullfilled]: (state, userPayload) => {
+    [mutationTypes.registerFullfilled](state, userPayload) {
         state.isLoading = false
         state.currentUser = userPayload
     },
 
-    [mutationTypes.registerRejected]: (state) => {
+    [mutationTypes.registerRejected](state) {
         state.isLoading = false
         state.currentUser = null
     },
 
-    [mutationTypes.loginPending]: (state) => {
+    [mutationTypes.loginPending](state) {
         state.isLoading = true
         state.currentUser = null
     },
 
-    [mutationTypes.loginFullfilled]: (state, userPayload) => {
+    [mutationTypes.loginFullfilled](state, userPayload) {
         state.isLoading = false
         state.currentUser = userPayload
     },
 
-    [mutationTypes.loginRejected]: (state) => {
+    [mutationTypes.loginRejected](state) {
         state.isLoading = false
         state.currentUser = null
     },
 
-    [mutationTypes.logout]: (state) => {
+    [mutationTypes.logout](state) {
         state.isLoading = false
         state.currentUser = null
     },
 
-    [mutationTypes.getCurrentUserPending]: (state) => {
+    [mutationTypes.getCurrentUserPending](state) {
         state.isLoading = true
         state.currentUser = null
     },
 
-    [mutationTypes.getCurrentUserFullfilled]: (state, userPayload) => {
+    [mutationTypes.getCurrentUserFullfilled](state, userPayload) {
         state.isLoading = false
         state.currentUser = userPayload
     },
 
-    [mutationTypes.getCurrentUserRejected]: (state) => {
+    [mutationTypes.getCurrentUserRejected](state) {
         state.isLoading = false
         state.currentUser = null
     },

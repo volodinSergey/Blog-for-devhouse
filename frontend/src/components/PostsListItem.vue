@@ -127,11 +127,11 @@ export default {
         likeStatus: likeStatus,
       }
 
-      if (!this.isAuth) this.$router.push({ name: 'loginView' })
+      if (!this.isAuth) this.$router.push({ name: this.$routes.LOGIN.name })
     },
 
     goToAuthorPage() {
-      this.$router.push({ name: 'userView', params: { id: this.post.author.id } })
+      this.$router.push({ name: this.$routes.USER.name, params: { id: this.post.author.id } })
     },
 
     handleAddingComment(createdComment) {

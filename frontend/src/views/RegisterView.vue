@@ -5,18 +5,18 @@
       class="register-form"
     >
       <BaseTextField
-        v-model="username"
+        v-model.trim="username"
         placeholder="name...."
       />
 
       <BaseTextField
-        v-model="email"
+        v-model.trim="email"
         placeholder="email...."
       />
 
       <BaseTextField
         type="password"
-        v-model="password"
+        v-model.trim="password"
         placeholder="password...."
       />
 
@@ -59,7 +59,7 @@ export default {
 
       await this.REGISTER(registrationData)
 
-      this.$router.push({ name: 'postsView' })
+      this.$router.push({ name: this.$routes.POSTS.name })
     },
   },
 }

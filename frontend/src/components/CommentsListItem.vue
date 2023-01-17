@@ -25,7 +25,7 @@
           @submit.prevent="onEdit"
           v-if="editMode"
         >
-          <BaseTextField v-model="commentBody" />
+          <BaseTextField v-model.trim="commentBody" />
           <button>edit</button>
         </form>
         <p

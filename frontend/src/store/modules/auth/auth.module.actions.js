@@ -13,6 +13,8 @@ const actions = {
 
             const currentUser = await AuthService.getCurrentUser(registrationData)
 
+            localStorage.setItem('role', currentUser.role)
+
             commit(mutationTypes.registerFullfilled, currentUser)
         } catch (err) {
             commit(mutationTypes.registerRejected)
@@ -31,6 +33,8 @@ const actions = {
 
             const currentUser = await AuthService.getCurrentUser()
 
+            localStorage.setItem('role', currentUser.role)
+
             commit(mutationTypes.loginFullfilled, currentUser)
         } catch (err) {
             commit(mutationTypes.loginRejected)
@@ -41,6 +45,7 @@ const actions = {
 
     [actionTypes.LOGOUT]({ commit }) {
         localStorage.removeItem('jwtToken')
+        localStorage.removeItem('role')
 
         commit(mutationTypes.logout)
     },
@@ -50,6 +55,8 @@ const actions = {
             commit(mutationTypes.getCurrentUserPending)
 
             const currentUser = await AuthService.getCurrentUser()
+
+            localStorage.setItem('role', currentUser.role)
 
             commit(mutationTypes.getCurrentUserFullfilled, currentUser)
         } catch (err) {

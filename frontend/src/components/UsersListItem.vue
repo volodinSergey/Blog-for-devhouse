@@ -1,7 +1,7 @@
 <template>
   <li class="users-list-item">
     <router-link
-      :to="{ name: 'userView', params: { id: id } }"
+      :to="{ name: this.$routes.USER.name, params: { id: id } }"
       class="users-list-item__left-box"
     >
       <img
