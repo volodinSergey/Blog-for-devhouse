@@ -16,8 +16,9 @@
 
         <div class="user-box__content">
           <PostsList
-            v-if="this.userPosts?.length"
-            :posts="this.userPosts"
+            v-if="userPosts?.length"
+            :postsData="userPosts"
+            @post-deleted="handleDeletingPost"
           />
           <div v-else>No posts here yet ....</div>
         </div>
@@ -59,17 +60,21 @@ export default {
     PostsService.getUserPosts(this.$route.params.id).then(userPosts => (this.userPosts = userPosts))
   },
 
-  methods: {
-    setPosts(newPostData) {
-      this.userPosts.push(newPostData)
-    },
-  },
-
   computed: {
     ...mapGetters({
       isAuth: getterTypes.isAuth,
       currentUserId: getterTypes.currentUserId,
     }),
+  },
+
+  methods: {
+    setPosts(newPostData) {
+      this.userPosts.push(newPostData)
+    },
+
+    handleDeletingPost(index) {
+      this.$delete(this.userPosts, index)
+    },
   },
 }
 </script>

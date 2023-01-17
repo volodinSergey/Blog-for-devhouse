@@ -1,10 +1,10 @@
 <template>
   <ul class="posts-list">
     <PostsListItem
-      v-for="(post, index) in globalPosts"
+      v-for="(post, index) in postsData"
       :key="post.id"
       :post="post"
-      @post-deleted="handleDeletingPost(index)"
+      @post-deleted="postDeleted(index)"
     />
   </ul>
 </template>
@@ -16,15 +16,9 @@ export default {
   name: 'PostsList',
 
   props: {
-    posts: {
+    postsData: {
       type: Array,
     },
-  },
-
-  data() {
-    return {
-      globalPosts: this.posts,
-    }
   },
 
   components: {
@@ -32,8 +26,8 @@ export default {
   },
 
   methods: {
-    handleDeletingPost(index) {
-      this.$delete(this.globalPosts, index)
+    postDeleted(index) {
+      this.$emit('post-deleted', index)
     },
   },
 }
