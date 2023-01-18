@@ -2,9 +2,9 @@
   <div class="select">
     <p
       @click="toggleIsOpened"
-      class="select__selected"
+      class="select__title"
     >
-      {{ selectedOption || 'Choose from list' }}
+      Sort by: {{ selectedOption }}
     </p>
 
     <ul
@@ -14,8 +14,10 @@
     >
       <li
         class="options-list__option"
+        :class="{ 'options-list__option--selected': selectedOption === option.name }"
         v-for="option in options"
         :key="option.value"
+        :value="option.value"
         @click="onSelectOption(option)"
       >
         {{ option.name }}
@@ -59,51 +61,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins.scss';
+$font-size-base: rem(20);
+
+$color-border: #23243e;
+$bgColor-options-list: #8267b50a;
+$bgColor-title: #8267b50a;
+$color-active-option: #230042;
+
 .select {
   position: relative;
-  width: 200px;
+  width: rem(200);
 
-  &__selected {
+  &__title {
+    font-size: $font-size-base;
     text-align: center;
-    padding: 0.5em;
-    margin-bottom: 1rem;
+    padding: em(10, 20);
+    margin-bottom: em(20, 20);
     cursor: pointer;
-    border: 1px solid #23243e;
-    border-radius: 0.4rem;
+    border: rem(1) solid $color-border;
+    background-color: $bgColor-title;
+    border-radius: em(3, 20);
   }
 }
 
 .options-list {
+  font-size: $font-size-base;
   position: absolute;
-  top: 40px;
+  top: rem(50);
   display: block;
   flex-direction: column;
-  border: 1px solid #23243e;
-  border-radius: 0.4rem;
-  background-color: #8267b50a;
+  border: 1px solid $color-border;
+  border-radius: em(5, 20);
+  background-color: $bgColor-options-list;
   width: 100%;
   transition: all 0.7s;
 
   &__option {
-    padding: 0.5em;
+    padding: em(8, 20);
     text-align: center;
     letter-spacing: 0.2em;
     cursor: pointer;
     transition: 0.2s;
 
+    &--selected {
+      background-color: $color-active-option;
+    }
+
     &:first-child {
-      border-top-left-radius: 0.4rem;
-      border-top-right-radius: 0.4rem;
+      border-top-left-radius: em(5, 20);
+      border-top-right-radius: em(5, 20);
     }
 
     &:last-child {
-      border-bottom-left-radius: 0.4rem;
-      border-bottom-right-radius: 0.4rem;
+      border-bottom-left-radius: em(5, 20);
+      border-bottom-right-radius: em(5, 20);
     }
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: #230042;
+        background-color: $color-active-option;
       }
     }
   }
