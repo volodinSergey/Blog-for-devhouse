@@ -47,8 +47,9 @@ export default {
       selectedOptionValue: '',
 
       options: [
-        { name: 'By descending', value: '' },
-        { name: 'By ascending', value: 'body' },
+        { name: 'all', value: '' },
+        { name: 'description', value: 'body' },
+        { name: 'title', value: 'title' },
       ],
     }
   },
@@ -89,6 +90,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins.scss';
+
 .posts {
   &__box {
     padding-top: 20px;

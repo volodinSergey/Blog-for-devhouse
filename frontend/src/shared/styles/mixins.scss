@@ -1,0 +1,32 @@
+$layoutSize: 1920;
+$oneVwPercentage: $layoutSize / 100;
+
+@function rem($fontPxValue) {
+    $result: calc($fontPxValue / 16) + rem;
+
+    @return $result;
+}
+
+@function em($elementsizePx, $fontSizePx) {
+    $result: calc($elementsizePx / $fontSizePx) + em;
+
+    @return $result;
+}
+
+@function lh($lineHeightValue, $fontValue) {
+    $result: calc($lineHeightValue / $fontValue);
+
+    @return $result;
+}
+
+@function get-vw($target) {
+    @return ($target/$oneVwPercentage) * 1vw;
+}
+
+@function adaptive($minFontSize, $maxFontSize) {
+    $viewPortsValue: get-vw(80);
+
+    $result: clamp($minFontSize, $viewPortsValue, $maxFontSize);
+
+    @return $result;
+}
