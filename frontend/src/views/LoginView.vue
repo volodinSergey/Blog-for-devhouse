@@ -1,28 +1,30 @@
 <template>
-  <div>
-    <form
-      @submit.prevent="onLogin"
-      class="register-form"
-    >
-      <BaseTextField
-        v-model.trim="identifier"
-        placeholder="email...."
-      />
-
-      <BaseTextField
-        type="password"
-        v-model.trim="password"
-        placeholder="password...."
-      />
-
-      <button
-        class="register-button"
-        type="submit"
+  <section class="login">
+    <div class="container">
+      <form
+        @submit.prevent="onLogin"
+        class="login-form"
       >
-        Login
-      </button>
-    </form>
-  </div>
+        <BaseTextField
+          v-model.trim="identifier"
+          placeholder="email...."
+        />
+
+        <BaseTextField
+          type="password"
+          v-model.trim="password"
+          placeholder="password...."
+        />
+
+        <button
+          class="login-button"
+          type="submit"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -77,7 +79,11 @@ input::placeholder {
   color: #9ca0d2;
 }
 
-.register-form {
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: grid;
   gap: 20px;
   padding: 20px;
@@ -86,7 +92,7 @@ input::placeholder {
   width: 300px;
 }
 
-.register-button {
+.login-button {
   background-color: #0016d9;
   padding: 6px;
   border-radius: 10px;
@@ -94,7 +100,7 @@ input::placeholder {
   color: #fff;
 }
 
-.register-button:hover {
+.login-button:hover {
   opacity: 0.8;
 }
 </style>

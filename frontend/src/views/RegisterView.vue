@@ -1,33 +1,35 @@
 <template>
-  <div>
-    <form
-      @submit.prevent="onRegister"
-      class="register-form"
-    >
-      <BaseTextField
-        v-model.trim="username"
-        placeholder="name...."
-      />
-
-      <BaseTextField
-        v-model.trim="email"
-        placeholder="email...."
-      />
-
-      <BaseTextField
-        type="password"
-        v-model.trim="password"
-        placeholder="password...."
-      />
-
-      <button
-        class="register-button"
-        type="submit"
+  <section class="register">
+    <div class="container">
+      <form
+        @submit.prevent="onRegister"
+        class="register-form"
       >
-        Register
-      </button>
-    </form>
-  </div>
+        <BaseTextField
+          v-model.trim="username"
+          placeholder="name...."
+        />
+
+        <BaseTextField
+          v-model.trim="email"
+          placeholder="email...."
+        />
+
+        <BaseTextField
+          type="password"
+          v-model.trim="password"
+          placeholder="password...."
+        />
+
+        <button
+          class="register-button"
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -85,6 +87,10 @@ input::placeholder {
 }
 
 .register-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: grid;
   gap: 20px;
   padding: 20px;

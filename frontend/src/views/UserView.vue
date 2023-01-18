@@ -14,12 +14,19 @@
 
         <BasePostsListTitle> User news {{ userInfo.username }} </BasePostsListTitle>
 
+        <BaseSearch
+          v-model.trim="searchValue"
+          placeholder="Type post text to search"
+          style="width: 50%; margin-bottom: 10px"
+        />
+
         <div class="user-box__content">
           <PostsList
-            v-if="userPosts?.length"
-            :postsData="userPosts"
+            v-if="filteredPosts?.length"
+            :postsData="filteredPosts"
             @post-deleted="handleDeletingPost"
           />
+
           <div v-else>No posts here yet ....</div>
         </div>
       </div>
@@ -51,6 +58,7 @@ export default {
     return {
       userInfo: {},
       userPosts: [],
+      searchValue: '',
     }
   },
 
@@ -65,6 +73,15 @@ export default {
       isAuth: getterTypes.isAuth,
       currentUserId: getterTypes.currentUserId,
     }),
+
+    filteredPosts() {
+      return this.userPosts.filter(post => {
+        const normalizedPostBody = post.body.toLowerCase()
+        const normalizedSearchValue = this.searchValue.toLowerCase()
+
+        return normalizedPostBody.includes(normalizedSearchValue)
+      })
+    },
   },
 
   methods: {
@@ -93,11 +110,5 @@ export default {
   @media (max-width: 720px) {
     grid-template-columns: 1fr;
   }
-}
-
-.container {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 15px;
 }
 </style>

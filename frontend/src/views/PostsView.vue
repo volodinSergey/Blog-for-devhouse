@@ -2,7 +2,7 @@
   <section class="posts">
     <div class="container">
       <div class="posts__box">
-        <div class="posts__box-left">
+        <div class="posts__box-posts-container">
           <PostsList
             v-if="filteredPosts?.length"
             :postsData="filteredPosts"
@@ -12,11 +12,15 @@
           <span v-else>No posts here</span>
         </div>
 
-        <div class="posts__box-right">
-          <input
+        <div class="posts__box-posts-interactivity">
+          <BaseSearch
             v-model.trim="searchValue"
-            type="search"
-            placeholder="What are you looking for ?..."
+            placeholder="Type post text to search..."
+          />
+
+          <BaseSelect
+            :options="options"
+            @option-selected="handleSelectingOption"
           />
         </div>
       </div>
@@ -39,6 +43,13 @@ export default {
     return {
       posts: [],
       searchValue: '',
+
+      selectedOptionValue: '',
+
+      options: [
+        { name: 'By descending', value: '' },
+        { name: 'By ascending', value: 'body' },
+      ],
     }
   },
 
@@ -47,8 +58,16 @@ export default {
   },
 
   computed: {
+    sortedPosts() {
+      if (!this.selectedOptionValue) return this.posts
+
+      return [...this.posts].sort((post1, post2) => {
+        return post1[this.selectedOptionValue]?.localeCompare(post2[this.selectedOptionValue])
+      })
+    },
+
     filteredPosts() {
-      return this.posts.filter(post => {
+      return this.sortedPosts.filter(post => {
         const normalizedPostBody = post.body.toLowerCase()
         const normalizedSearchValue = this.searchValue.toLowerCase()
 
@@ -61,6 +80,10 @@ export default {
     handleDeletingPost(index) {
       this.$delete(this.posts, index)
     },
+
+    handleSelectingOption(selectedOptionValue) {
+      this.selectedOptionValue = selectedOptionValue
+    },
   },
 }
 </script>
@@ -72,34 +95,20 @@ export default {
     display: flex;
     gap: 20px;
 
-    &-left {
+    &-posts-container,
+    &-posts-interactivity {
       flex-basis: 50%;
     }
 
     @media (max-width: 720px) {
       flex-wrap: wrap;
     }
+
+    &-posts-interactivity {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
-}
-
-input {
-  background-color: #23243e;
-  color: #fff;
-  padding: 10px;
-  border: 3px solid transparent;
-  border-radius: 10px;
-  transition: 0.3s;
-  outline: none;
-  width: 200px;
-
-  &::placeholder {
-    color: #fff;
-  }
-}
-
-.container {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 15px;
 }
 </style>

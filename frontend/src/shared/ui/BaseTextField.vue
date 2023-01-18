@@ -1,7 +1,7 @@
 <template>
   <textarea
-    class="base-textfield"
     v-if="textareaMode"
+    class="base-textfield"
     :value="value"
     :placeholder="placeholder"
     @input="emitInputValue"
