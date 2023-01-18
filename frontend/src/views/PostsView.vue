@@ -2,13 +2,27 @@
   <section class="posts">
     <div class="container">
       <div class="posts__box">
-        <PostsList
-          v-if="posts?.length"
-          :posts="posts"
-        />
-        <span v-else>No posts here</span>
+        <div class="posts__box-posts-container">
+          <PostsList
+            v-if="filteredPosts?.length"
+            :postsData="filteredPosts"
+            @post-deleted="handleDeletingPost"
+          />
 
-        <PostsActions />
+          <span v-else>No posts here</span>
+        </div>
+
+        <div class="posts__box-posts-interactivity">
+          <BaseSearch
+            v-model.trim="searchValue"
+            placeholder="Type post text to search..."
+          />
+
+          <BaseSelect
+            :options="options"
+            @option-selected="handleSelectingOption"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -16,7 +30,6 @@
 
 <script>
 import PostsList from '@/components/PostsList.vue'
-import PostsActions from '@/components/PostsActions.vue'
 import PostsService from '@/services/postsService/Posts.service'
 
 export default {
@@ -24,17 +37,53 @@ export default {
 
   components: {
     PostsList,
-    PostsActions,
   },
 
   data() {
     return {
       posts: [],
+      searchValue: '',
+
+      selectedOptionValue: '',
+
+      options: [
+        { name: 'By descending', value: '' },
+        { name: 'By ascending', value: 'body' },
+      ],
     }
   },
 
   created() {
     PostsService.getAll().then(posts => (this.posts = posts))
+  },
+
+  computed: {
+    sortedPosts() {
+      if (!this.selectedOptionValue) return this.posts
+
+      return [...this.posts].sort((post1, post2) => {
+        return post1[this.selectedOptionValue]?.localeCompare(post2[this.selectedOptionValue])
+      })
+    },
+
+    filteredPosts() {
+      return this.sortedPosts.filter(post => {
+        const normalizedPostBody = post.body.toLowerCase()
+        const normalizedSearchValue = this.searchValue.toLowerCase()
+
+        return normalizedPostBody.includes(normalizedSearchValue)
+      })
+    },
+  },
+
+  methods: {
+    handleDeletingPost(index) {
+      this.$delete(this.posts, index)
+    },
+
+    handleSelectingOption(selectedOptionValue) {
+      this.selectedOptionValue = selectedOptionValue
+    },
   },
 }
 </script>
@@ -46,15 +95,20 @@ export default {
     display: flex;
     gap: 20px;
 
+    &-posts-container,
+    &-posts-interactivity {
+      flex-basis: 50%;
+    }
+
     @media (max-width: 720px) {
       flex-wrap: wrap;
     }
-  }
-}
 
-.container {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 15px;
+    &-posts-interactivity {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
 }
 </style>

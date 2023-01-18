@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <div class="container">
-      <TheHeader />
+    <TheHeader />
 
-      <router-view :key="$route.fullPath"></router-view>
-    </div>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
@@ -34,33 +32,5 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-}
-
-input,
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  object-fit: cover;
-}
-
-ul {
-  list-style: none;
-}
-
-body {
-  background-color: #090a1a;
-  color: rgb(87, 249, 255);
-  font-family: sans-serif;
-  color: #fff;
-}
+@import '@/shared/styles/main.scss';
 </style>

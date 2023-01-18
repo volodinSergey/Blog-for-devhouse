@@ -1,0 +1,14 @@
+@import "./reset.scss";
+
+body {
+    background-color: #090a1a;
+    color: rgb(87, 249, 255);
+    font-family: sans-serif;
+    color: #fff;
+}
+
+.container {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
