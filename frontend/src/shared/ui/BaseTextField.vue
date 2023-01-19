@@ -1,7 +1,7 @@
 <template>
   <textarea
     v-if="textareaMode"
-    class="base-textfield"
+    class="base-textfield textarea"
     :value="value"
     :placeholder="placeholder"
     @input="emitInputValue"
@@ -63,7 +63,7 @@ export default {
 .base-textfield {
   background-color: #23243e;
   color: #fff;
-  padding: 8px;
+  padding: 5px;
   border: 3px solid transparent;
   border-radius: 10px;
   transition: 0.3s;
@@ -76,5 +76,11 @@ export default {
   &::placeholder {
     color: #9ca0d2;
   }
+}
+
+.textarea {
+  resize: none;
+  height: 100px;
+  max-height: 100px;
 }
 </style>

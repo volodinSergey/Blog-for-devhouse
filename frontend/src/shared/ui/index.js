@@ -6,6 +6,7 @@ import BaseLogo from '@/shared/ui/BaseLogo.vue'
 import BaseTextField from '@/shared/ui/BaseTextField.vue'
 import BaseSearch from '@/shared/ui/BaseSearch.vue'
 import BaseSelect from '@/shared/ui/BaseSelect.vue'
+import BaseAvatar from '@/shared/ui/BaseAvatar.vue'
 
 const uikit = [
     BasePostsListTitle,
@@ -13,7 +14,8 @@ const uikit = [
     BaseLogo,
     BaseTextField,
     BaseSearch,
-    BaseSelect
+    BaseSelect,
+    BaseAvatar
 ]
 
 const useUiKit = () => {

@@ -5,17 +5,9 @@
         class="post-item__author-info author-info"
         @click="goToAuthorPage"
       >
-        <img
-          class="author-info__avatar"
-          v-if="fullAvatarUrl"
-          :src="fullAvatarUrl"
-          alt="user avatar"
-        />
-        <img
-          class="author-info__avatar"
-          v-else
-          src="@/assets/no-avatar.jpg"
-          alt="user avatar"
+        <BaseAvatar
+          :imagePath="post.author.avatar"
+          width="50"
         />
 
         <span class="author-info-name">{{ post.author.name }}</span>
@@ -110,26 +102,9 @@ export default {
 
       return `${baseUrl}${this.post.image}`
     },
-
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-
-      if (this.post.author.avatar) return `${baseUrl}${this.post.author.avatar}`
-
-      return false
-    },
   },
 
   methods: {
-    liking(likeStatus) {
-      const likeStatusPayload = {
-        postId: this.post.id,
-        likeStatus: likeStatus,
-      }
-
-      if (!this.isAuth) this.$router.push({ name: this.$routes.LOGIN.name })
-    },
-
     goToAuthorPage() {
       this.$router.push({ name: this.$routes.USER.name, params: { id: this.post.author.id } })
     },
@@ -150,6 +125,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins';
+
 .post-item {
   padding: 15px;
   border: 1px solid #23243e;
@@ -157,12 +134,14 @@ export default {
   border-radius: 0.9rem;
 
   &__title {
-    margin-bottom: 25px;
+    font-size: adaptive(rem(16), rem(20));
+    margin-bottom: em(25, 20);
   }
 
   &__body {
+    font-size: 1rem;
     color: #c5c5c5;
-    margin-bottom: 20px;
+    margin-bottom: em(25, 16);
   }
 
   &__image {
@@ -173,7 +152,7 @@ export default {
 
   &__actions {
     display: inline-flex;
-    gap: 25px;
+    gap: 20px;
     margin-bottom: 1rem;
   }
 }
@@ -184,12 +163,6 @@ export default {
   align-items: center;
   margin-bottom: 30px;
   cursor: pointer;
-
-  &__avatar {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
 }
 
 .show-comments-button {

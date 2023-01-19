@@ -1,6 +1,6 @@
 import Axios from '@/api/axios'
 
-import { useAllPostsAdapter } from '@/services/postsService/Posts.service.adapters'
+import { useAllPostsAdapter, usePostAdapter } from '@/services/postsService/Posts.service.adapters'
 
 const PostsService = {
     getAll: async () => {
@@ -19,7 +19,13 @@ const PostsService = {
         return adaptedPosts
     },
 
-    create: async (newPostData) => await Axios.post('/api/posts', newPostData),
+    create: async (newPostData) => {
+        const { data } = await Axios.post('/api/posts', newPostData)
+
+        const adaptedPost = usePostAdapter(data)
+
+        return adaptedPost
+    },
 
     delete: async (id) => await Axios.delete(`/api/posts/${id}`)
 }

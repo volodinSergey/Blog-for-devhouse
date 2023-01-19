@@ -2,31 +2,53 @@
   <li class="comment-item">
     <div class="comment-item__left-box">
       <router-link :to="{ name: 'userView', params: { id: authorId } }">
-        <img
-          class="comment-item__avatar"
-          v-if="fullAvatarUrl"
-          :src="fullAvatarUrl"
-          alt="user avatar"
-        />
-        <img
-          class="comment-item__avatar"
-          v-else
-          src="@/assets/no-avatar.jpg"
-          alt="user avatar"
+        <BaseAvatar
+          :imagePath="avatar"
+          width="45"
         />
       </router-link>
+    </div>
+
+    <div
+      v-if="(isAuth && authorId === currentUserId) || isAdmin"
+      class="comment-actions"
+      :class="{ 'comment-actions--opened': areCommentActionsOpened }"
+    >
+      <button
+        class="comment-actions__delete-comment-button"
+        @click="onDeleteComment"
+      >
+        Delete
+      </button>
+
+      <button
+        v-if="isAuth && authorId === currentUserId"
+        @click="toggleEditCommentMode"
+        class="comment-actions__edit-comment-button"
+      >
+        Edit
+      </button>
     </div>
 
     <div class="comment-item__right-box">
       <div>
         <p class="comment-item__authorname">{{ authorname }}</p>
 
+        <button
+          v-if="isAuth && authorId === currentUserId"
+          @click="toggleOpeningCommentActions"
+          class="toggle-actions-button"
+        >
+          <div class="toggle-actions-button__item"></div>
+          <div class="toggle-actions-button__item"></div>
+          <div class="toggle-actions-button__item"></div>
+        </button>
+
         <form
           @submit.prevent="onEdit"
           v-if="editMode"
         >
-          <BaseTextField v-model.trim="commentBody" />
-          <button>edit</button>
+          <BaseTextField v-model.trim="commentBodyInEditMode" />
         </form>
         <p
           v-else
@@ -34,24 +56,6 @@
         >
           {{ commentBody }}
         </p>
-      </div>
-
-      <div class="comment-actions">
-        <button
-          v-if="(isAuth && authorId === currentUserId) || isAdmin"
-          class="comment-actions__delete-comment-button"
-          @click="onDeleteComment"
-        >
-          Delete
-        </button>
-
-        <button
-          v-if="isAuth && authorId === currentUserId"
-          @click="toggleEditCommentMode"
-          class="comment-actions__edit-comment-button"
-        >
-          Edit
-        </button>
       </div>
     </div>
   </li>
@@ -96,7 +100,9 @@ export default {
   data() {
     return {
       commentBody: this.body,
+      commentBodyInEditMode: '',
       editMode: false,
+      areCommentActionsOpened: false,
     }
   },
 
@@ -106,14 +112,6 @@ export default {
       currentUserId: getterTypes.currentUserId,
       isAdmin: getterTypes.isAdmin,
     }),
-
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-
-      if (this.avatar) return `${baseUrl}${this.avatar}`
-
-      return false
-    },
   },
 
   methods: {
@@ -125,15 +123,26 @@ export default {
 
     async toggleEditCommentMode() {
       this.editMode = !this.editMode
+
+      this.commentBodyInEditMode = this.commentBody
     },
 
     async onEdit() {
       const commentToEdit = {
         data: {
-          body: this.commentBody,
+          body: this.commentBodyInEditMode,
         },
       }
       await CommentsService.edit(this.commentId, commentToEdit)
+
+      this.commentBody = this.commentBodyInEditMode
+
+      this.editMode = false
+      this.areCommentActionsOpened = false
+    },
+
+    toggleOpeningCommentActions() {
+      this.areCommentActionsOpened = !this.areCommentActionsOpened
 
       this.editMode = false
     },
@@ -142,19 +151,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins';
+
 .comment-item {
+  position: relative;
   display: flex;
   gap: 10px;
   padding: 5px;
-
-  &__avatar {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
+  max-width: 100%;
 
   &__body {
-    font-size: 1.1rem;
+    font-size: adaptive(rem(14), rem(17));
+    max-width: 100%;
+    word-break: break-all;
   }
 
   &__authorname {
@@ -170,26 +179,62 @@ export default {
     flex-grow: 1;
     justify-content: space-between;
     align-items: center;
+    flex-basis: 100%;
+  }
+}
+
+.toggle-actions-button {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 25px;
+  height: 20px;
+
+  &__item {
+    width: 6px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #fff;
   }
 }
 
 .comment-actions {
-  display: flex;
-  gap: 10px;
+  position: absolute;
+  right: 60px;
+  display: none;
+  max-width: max-content;
+  border-radius: rem(5);
+  background-color: #320e8b;
+  color: #fff;
+  z-index: 99;
 
-  &__delete-comment-button,
-  &__edit-comment-button {
-    align-self: center;
-    border: none;
-    color: #fff;
-    padding: 7px;
-    border-radius: 10px;
-    background-color: transparent;
-    transition: all 0.2s;
+  &--opened {
+    display: flex;
+  }
+
+  & * {
+    font-size: 17px;
+    padding: 5px 10px;
+    color: inherit;
+    transition: 0.3s;
+
+    &:first-child {
+      border-top-left-radius: rem(5);
+      border-top-right-radius: rem(5);
+    }
+
+    &:last-child {
+      border-bottom-left-radius: rem(5);
+      border-bottom-right-radius: rem(5);
+    }
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: #2a719d33;
+        background-color: #3d13a7;
       }
     }
   }

@@ -1,44 +1,58 @@
 <template>
-  <router-link
+  <div
     v-if="isAuth"
-    :to="{ name: this.$routes.USER.name, params: { id: currentUser.id } }"
     class="user-info"
+    @click="onToggleOpeningUserActions"
   >
-    <img
-      v-if="fullAvatarUrl"
-      class="user-info__avatar"
-      :src="fullAvatarUrl"
-      alt="user avatar"
-    />
-    <img
-      v-else
-      class="user-info__avatar"
-      src="@/assets/no-avatar.jpg"
-      alt="user avatar"
+  
+    <span class="user-info__name">{{ currentUser?.username }}</span>
+
+    <BaseAvatar
+      :imagePath="currentUser.avatar"
+      width="40"
     />
 
-    <span class="user-info__name">{{ currentUser.username }}</span>
-  </router-link>
+    <TheHeaderUserActions
+      :userId="currentUser.id"
+      :isUserActionsOpened="isUserActionsOpened"
+      @user-actions-closed="handleUserActionsClosing"
+    />
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { getterTypes } from '@/store/modules/auth/auth.module.types'
 
+import TheHeaderUserActions from './TheHeaderUserActions.vue'
+
 export default {
   name: 'TheHeaderUserInfoPanel',
+
+  components: {
+    TheHeaderUserActions,
+  },
+
+  data() {
+    return {
+      isUserActionsOpened: false,
+    }
+  },
 
   computed: {
     ...mapGetters({
       isAuth: getterTypes.isAuth,
       currentUser: getterTypes.currentUser,
     }),
+  },
 
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-      if (this.currentUser?.avatar?.url) return `${baseUrl}${this.currentUser?.avatar?.url}`
+  methods: {
+    onToggleOpeningUserActions() {
+      this.isUserActionsOpened = !this.isUserActionsOpened
+    },
 
-      return false
+    handleUserActionsClosing(signalToClose) {
+      this.isUserActionsOpened = signalToClose
     },
   },
 }
@@ -46,15 +60,14 @@ export default {
 
 <style lang="scss" scoped>
 .user-info {
+  position: relative;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   cursor: pointer;
 
-  &__avatar {
-    width: 40px;
-    aspect-ratio: 1;
-    border-radius: 50%;
+  &__name {
+    user-select: none;
   }
 }
 </style>

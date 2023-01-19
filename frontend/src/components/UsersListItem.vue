@@ -4,28 +4,21 @@
       :to="{ name: this.$routes.USER.name, params: { id: id } }"
       class="users-list-item__left-box"
     >
-      <img
-        class="user-avatar"
-        v-if="fullAvatarUrl"
-        :src="fullAvatarUrl"
-        alt="user avatar"
-      />
-      <img
-        class="user-avatar"
-        v-else
-        src="@/assets/no-avatar.jpg"
-        alt="user avatar"
+      <BaseAvatar
+        :imagePath="avatar"
+        width="40"
       />
 
-      <span>{{ name }}</span>
+      <span class="user-name">{{ name }}</span>
     </router-link>
 
     <div class="users-list-item__right-box">
       <BaseButton
         v-if="isAdmin"
         @click="onDeleteUser"
-        >Delete user</BaseButton
       >
+        Delete
+      </BaseButton>
     </div>
   </li>
 </template>
@@ -59,14 +52,6 @@ export default {
     ...mapGetters({
       isAdmin: getterTypes.isAdmin,
     }),
-
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-
-      if (this.avatar) return `${baseUrl}${this.avatar}`
-
-      return false
-    },
   },
 
   methods: {
@@ -80,9 +65,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins.scss';
+
 .users-list-item {
   display: flex;
-  padding: 15px;
+  padding: 5px;
   border: 1px solid #23243e;
   background-color: #16182d;
   border-radius: 0.9rem;
@@ -102,9 +89,8 @@ export default {
     padding-right: 10px;
   }
 }
-.user-avatar {
-  width: 50px;
-  aspect-ratio: 1;
-  border-radius: 50%;
+
+.user-name {
+  font-size: adaptive(rem(12), rem(16));
 }
 </style>

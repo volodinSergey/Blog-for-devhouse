@@ -28,9 +28,9 @@ export default {
 
   methods: {
     userDeleted(index) {
-        this.$emit('user-deleted', index)
-    }
-  }
+      this.$emit('user-deleted', index)
+    },
+  },
 }
 </script>
 
@@ -39,5 +39,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
+
+  @media (min-width: 745px) {
+    width: 70%;
+  }
 }
 </style>

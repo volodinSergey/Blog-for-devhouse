@@ -33,4 +33,9 @@ export default {
 
 <style lang="scss">
 @import '@/shared/styles/main.scss';
+
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
 </style>

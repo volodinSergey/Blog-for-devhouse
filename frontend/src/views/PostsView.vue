@@ -95,22 +95,22 @@ export default {
 .posts {
   &__box {
     padding-top: 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 
-    &-posts-container,
-    &-posts-interactivity {
-      flex-basis: 50%;
-    }
-
     @media (max-width: 720px) {
-      flex-wrap: wrap;
+      grid-template-columns: 1fr;
     }
 
     &-posts-interactivity {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+
+      @media (max-width: 720px) {
+        grid-row: 1;
+      }
     }
   }
 }
