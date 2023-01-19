@@ -62,6 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/shared/styles/mixins.scss';
+
 $font-size-base: rem(20);
 
 $color-border: #23243e;
