@@ -87,7 +87,7 @@ export default {
 
   methods: {
     setPosts(newPostData) {
-      this.$set(this.userPosts, 0, newPostData)
+      this.userPosts.push(newPostData)
     },
 
     handleDeletingPost(index) {
@@ -101,10 +101,6 @@ export default {
 .user-page {
   &__box {
     padding: 0;
-
-    @media (min-width: 375px) {
-      padding: 0 2rem 2rem 2rem;
-    }
   }
 }
 
@@ -113,7 +109,7 @@ export default {
   max-width: 100%;
   margin-bottom: 10px;
 
-  @media (min-width: 530px) {
+  @media (min-width: 745px) {
     width: 50%;
   }
 }

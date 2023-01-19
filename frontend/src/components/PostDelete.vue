@@ -55,6 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins';
 .delete-button {
   display: flex;
   justify-content: center;
@@ -66,6 +67,8 @@ export default {
   border-radius: 21px;
   transition: 0.2s;
   user-select: none;
+  width: rem(40);
+  height: rem(40);
 
   @media (any-hover: hover) {
     &:hover {
@@ -74,8 +77,9 @@ export default {
   }
 
   &__icon {
-    width: 30px;
-    aspect-ratio: 1;
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 </style>

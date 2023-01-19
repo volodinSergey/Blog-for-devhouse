@@ -134,7 +134,7 @@ export default {
 
   &__image-preview {
     background-color: #ffffff0f;
-    width: 200px;
+    width: clamp(100px, 10.42vw, 200px);
     border-radius: 1em;
 
     & img {

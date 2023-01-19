@@ -105,15 +105,6 @@ export default {
   },
 
   methods: {
-    liking(likeStatus) {
-      const likeStatusPayload = {
-        postId: this.post.id,
-        likeStatus: likeStatus,
-      }
-
-      if (!this.isAuth) this.$router.push({ name: this.$routes.LOGIN.name })
-    },
-
     goToAuthorPage() {
       this.$router.push({ name: this.$routes.USER.name, params: { id: this.post.author.id } })
     },
@@ -161,7 +152,7 @@ export default {
 
   &__actions {
     display: inline-flex;
-    gap: 25px;
+    gap: 20px;
     margin-bottom: 1rem;
   }
 }

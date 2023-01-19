@@ -113,7 +113,7 @@ export default {
   padding: 4px 10px;
   border: 1px solid #23243e;
   border-radius: 10px;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-top: 1rem;
 }
 
@@ -135,8 +135,9 @@ export default {
   }
 
   &-icon {
-    width: 40px;
-    height: 40px;
+    display: flex;
+    width: clamp(25px, 2.083vw, 40px);
+    height: 100%;
   }
 }
 
