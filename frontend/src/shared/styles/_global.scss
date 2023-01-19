@@ -1,0 +1,14 @@
+@import "./_bodyScrollbar.scss";
+
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+    background-color: #090a1a;
+    color: rgb(87, 249, 255);
+}
+
+.container {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 15px;
+}

@@ -5,17 +5,9 @@
         class="post-item__author-info author-info"
         @click="goToAuthorPage"
       >
-        <img
-          class="author-info__avatar"
-          v-if="fullAvatarUrl"
-          :src="fullAvatarUrl"
-          alt="user avatar"
-        />
-        <img
-          class="author-info__avatar"
-          v-else
-          src="@/assets/no-avatar.jpg"
-          alt="user avatar"
+        <BaseAvatar
+          :imagePath="post.author.avatar"
+          width="50"
         />
 
         <span class="author-info-name">{{ post.author.name }}</span>
@@ -110,14 +102,6 @@ export default {
 
       return `${baseUrl}${this.post.image}`
     },
-
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-
-      if (this.post.author.avatar) return `${baseUrl}${this.post.author.avatar}`
-
-      return false
-    },
   },
 
   methods: {
@@ -184,12 +168,6 @@ export default {
   align-items: center;
   margin-bottom: 30px;
   cursor: pointer;
-
-  &__avatar {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
 }
 
 .show-comments-button {

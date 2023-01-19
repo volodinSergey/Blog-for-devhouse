@@ -2,17 +2,9 @@
   <li class="comment-item">
     <div class="comment-item__left-box">
       <router-link :to="{ name: 'userView', params: { id: authorId } }">
-        <img
-          class="comment-item__avatar"
-          v-if="fullAvatarUrl"
-          :src="fullAvatarUrl"
-          alt="user avatar"
-        />
-        <img
-          class="comment-item__avatar"
-          v-else
-          src="@/assets/no-avatar.jpg"
-          alt="user avatar"
+        <BaseAvatar
+          :imagePath="avatar"
+          width="45"
         />
       </router-link>
     </div>
@@ -106,14 +98,6 @@ export default {
       currentUserId: getterTypes.currentUserId,
       isAdmin: getterTypes.isAdmin,
     }),
-
-    fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337'
-
-      if (this.avatar) return `${baseUrl}${this.avatar}`
-
-      return false
-    },
   },
 
   methods: {
@@ -146,12 +130,6 @@ export default {
   display: flex;
   gap: 10px;
   padding: 5px;
-
-  &__avatar {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
 
   &__body {
     font-size: 1.1rem;

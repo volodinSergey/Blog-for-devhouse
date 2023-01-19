@@ -16,10 +16,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins.scss';
+
 $logo-color: #fff;
-$font-size: 1.3rem;
+$font-size: adaptive(rem(13), rem(20));
 .logo-box {
   display: inline-block;
+  margin-right: 20px;
 
   &__logo {
     font-family: sans-serif;

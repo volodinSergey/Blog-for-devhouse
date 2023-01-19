@@ -1,13 +1,6 @@
 <template>
   <div class="auth-buttons">
-    <BaseButton
-      v-if="isAuth"
-      @click="onClickLogoutButton"
-    >
-      Logout
-    </BaseButton>
-
-    <template v-else>
+    <template v-if="!isAuth">
       <BaseButton @click="onClickRegisterButton"> Register </BaseButton>
 
       <BaseButton @click="onClickLoginButton"> Login </BaseButton>
@@ -33,14 +26,8 @@ export default {
       LOGOUT: actionTypes.LOGOUT,
     }),
 
-    onClickLogoutButton() {
-      this.LOGOUT()
-
-      this.$router.push({ name: this.$routes.LOGIN.name })
-    },
-
     onClickRegisterButton() {
-      this.$router.push({ name:  this.$routes.REGISTER.name })
+      this.$router.push({ name: this.$routes.REGISTER.name })
     },
 
     onClickLoginButton() {

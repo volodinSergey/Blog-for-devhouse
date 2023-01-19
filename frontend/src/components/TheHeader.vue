@@ -5,12 +5,6 @@
         <BaseLogo />
 
         <div class="header-box__right">
-          <router-link
-            v-if="isAuth"
-            :to="{ name: this.$routes.USERS.name }"
-            >All users</router-link
-          >
-
           <TheHeaderUserInfoPanel />
 
           <AuthButtonsGroup />
@@ -57,14 +51,6 @@ export default {
   }
 }
 
-.header-box {
-  &__right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-  }
-}
-
 .navigation-list {
   display: flex;
   gap: 20px;
@@ -73,10 +59,5 @@ export default {
   font-family: sans-serif;
   font-size: 1.3rem;
   color: #fff;
-}
-
-.container {
-  max-width: 1480px;
-  margin: 0 auto;
 }
 </style>

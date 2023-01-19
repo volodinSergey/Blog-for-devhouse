@@ -68,23 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input {
-  background-color: #23243e;
-  color: #fff;
-  padding: 8px;
-  border: 3px solid transparent;
-  border-radius: 10px;
-  transition: 0.3s;
-  outline: none;
-}
-
-input:focus {
-  border: 3px solid #0016d9;
-}
-
-input::placeholder {
-  color: #9ca0d2;
-}
+@import '@/shared/styles/mixins.scss';
 
 .register-form {
   position: absolute;
@@ -96,11 +80,11 @@ input::placeholder {
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  width: 300px;
+  width: rem(250);
 }
 
 .register-button {
-  background-color: #0016d9;
+  background-color: #888;
   padding: 6px;
   border-radius: 10px;
   transition: 0.2s;
