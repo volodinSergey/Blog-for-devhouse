@@ -25,7 +25,7 @@ export default {
 
   computed: {
     fullAvatarUrl() {
-      const baseUrl = 'http://localhost:1337' // ?? env ? .....
+      const baseUrl = 'http://localhost:1337' // ?? env file ? .....
       if (this.imagePath) return `${baseUrl}${this.imagePath}`
 
       return require(`@/assets/no-avatar.jpg`)

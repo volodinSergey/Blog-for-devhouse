@@ -134,6 +134,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins';
+
 .post-item {
   padding: 15px;
   border: 1px solid #23243e;
@@ -141,12 +143,14 @@ export default {
   border-radius: 0.9rem;
 
   &__title {
-    margin-bottom: 25px;
+    font-size: adaptive(rem(16), rem(20));
+    margin-bottom: em(25, 20);
   }
 
   &__body {
+    font-size: 1rem;
     color: #c5c5c5;
-    margin-bottom: 20px;
+    margin-bottom: em(25, 16);
   }
 
   &__image {

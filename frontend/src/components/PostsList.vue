@@ -39,18 +39,5 @@ export default {
   gap: 1.5rem;
   flex-basis: 40%;
   border-radius: 0.9rem;
-
-  @media (max-width: 720px) {
-    flex-basis: 100%;
-  }
-
-  &::-webkit-scrollbar {
-    width: 0.4rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #ababab12;
-    border-radius: 10px;
-  }
 }
 </style>

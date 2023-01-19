@@ -15,13 +15,14 @@
         <BasePostsListTitle> User news {{ userInfo.username }} </BasePostsListTitle>
 
         <BaseSearch
+          class="search-bar"
           v-model.trim="searchValue"
           placeholder="Type post text to search"
-          style="width: 50%; margin-bottom: 10px"
         />
 
         <div class="user-box__content">
           <PostsList
+            class="posts-list"
             v-if="filteredPosts?.length"
             :postsData="filteredPosts"
             @post-deleted="handleDeletingPost"
@@ -86,7 +87,7 @@ export default {
 
   methods: {
     setPosts(newPostData) {
-      this.userPosts.push(newPostData)
+      this.$set(this.userPosts, 0, newPostData)
     },
 
     handleDeletingPost(index) {
@@ -99,16 +100,21 @@ export default {
 <style lang="scss" scoped>
 .user-page {
   &__box {
-    padding: 0 2rem 2rem 2rem;
+    padding: 0;
+
+    @media (min-width: 375px) {
+      padding: 0 2rem 2rem 2rem;
+    }
   }
 }
 
-.user-box__content {
-  display: grid;
-  grid-template-columns: 50% 1fr;
+.search-bar,
+.posts-list {
+  max-width: 100%;
+  margin-bottom: 10px;
 
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 530px) {
+    width: 50%;
   }
 }
 </style>

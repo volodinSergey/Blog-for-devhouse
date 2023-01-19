@@ -1,6 +1,7 @@
 <template>
   <form class="add-comment-form">
     <BaseTextField
+      class="add-comment-form__textfield"
       v-model.trim="commentBody"
       placeholder="Add your comment"
     />
@@ -137,5 +138,9 @@ export default {
     width: 40px;
     height: 40px;
   }
+}
+
+.add-comment-form__textfield {
+  flex-basis: 100%;
 }
 </style>

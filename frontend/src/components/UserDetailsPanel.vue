@@ -2,7 +2,7 @@
   <div class="user-details">
     <BaseAvatar
       :imagePath="avatar"
-      width="100"
+      width="80"
     />
 
     <h1 class="user-details__username">
@@ -32,7 +32,8 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(20px, 3.646vw, 60px);
+
   border: 1px solid #23243e;
   border-top: 0px;
   border-radius: 1rem;

@@ -38,6 +38,7 @@ input {
   padding: 8px;
   border: 3px solid transparent;
   border-radius: 10px;
+  width: 100%;
   transition: 0.3s;
   outline: none;
 }
