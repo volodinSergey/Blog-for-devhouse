@@ -1,33 +1,30 @@
 <template>
   <section class="register">
     <div class="container">
-      <form
-        @submit.prevent="onRegister"
-        class="register-form"
-      >
-        <BaseTextField
-          v-model.trim="username"
-          placeholder="name...."
-        />
-
-        <BaseTextField
-          v-model.trim="email"
-          placeholder="email...."
-        />
-
-        <BaseTextField
-          type="password"
-          v-model.trim="password"
-          placeholder="password...."
-        />
-
-        <button
-          class="register-button"
-          type="submit"
+      <div class="register__box">
+        <form
+          @submit.prevent="onRegister"
+          class="register-form"
         >
-          Register
-        </button>
-      </form>
+          <BaseTextField
+            v-model.trim="username"
+            placeholder="name...."
+          />
+
+          <BaseTextField
+            v-model.trim="email"
+            placeholder="email...."
+          />
+
+          <BaseTextField
+            type="password"
+            v-model.trim="password"
+            placeholder="password...."
+          />
+
+          <BaseButton>Register</BaseButton>
+        </form>
+      </div>
     </div>
   </section>
 </template>
@@ -70,28 +67,21 @@ export default {
 <style lang="scss" scoped>
 @import '@/shared/styles/mixins.scss';
 
-.register-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.register__box {
   display: grid;
-  gap: 20px;
-  padding: 20px;
+  padding-top: 20%;
+
+  @media (min-width: 475px) {
+    place-items: center;
+  }
+}
+
+.register-form {
+  display: grid;
+  gap: rem(20);
+  padding: rem(20);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  width: rem(250);
-}
-
-.register-button {
-  background-color: #888;
-  padding: 6px;
-  border-radius: 10px;
-  transition: 0.2s;
-  color: #fff;
-}
-
-.register-button:hover {
-  opacity: 0.8;
+  border-radius: rem(10);
+  min-width: 40%;
 }
 </style>

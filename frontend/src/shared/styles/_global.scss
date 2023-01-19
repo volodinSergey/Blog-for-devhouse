@@ -1,4 +1,8 @@
 @import "./_bodyScrollbar.scss";
+html,
+body {
+    min-height: 100%;
+}
 
 body {
     font-family: sans-serif;

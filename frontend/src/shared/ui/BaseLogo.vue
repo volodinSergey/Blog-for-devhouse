@@ -18,7 +18,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/shared/styles/mixins.scss';
 
-$logo-color: #fff;
+$color: #fff;
 $font-size: adaptive(rem(13), rem(20));
 .logo-box {
   display: inline-block;
@@ -27,7 +27,7 @@ $font-size: adaptive(rem(13), rem(20));
   &__logo {
     font-family: sans-serif;
     font-size: $font-size;
-    color: $logo-color;
+    color: $color;
   }
 }
 </style>
