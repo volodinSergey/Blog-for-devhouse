@@ -1,7 +1,9 @@
 <template>
   <section class="not-found">
     <div class="container">
-      <h1 class="not-found__title">OOPS, PAGE NOT FOUND</h1>
+      <div class="not-found__box">
+        <h1 class="not-found__title">OOPS, PAGE NOT FOUND</h1>
+      </div>
     </div>
   </section>
 </template>
@@ -13,11 +15,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/shared/styles/mixins.scss';
+
+.not-found__box {
+  display: grid;
+  padding-top: 20%;
+  place-items: center;
+}
+
 .not-found__title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 4rem;
+  font-size: adaptive(rem(20), rem(50));
 }
 </style>

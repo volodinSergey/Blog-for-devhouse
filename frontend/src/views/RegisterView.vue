@@ -69,7 +69,7 @@ export default {
 
 .register__box {
   display: grid;
-  padding-top: 20%;
+  padding-top: 15%;
 
   @media (min-width: 475px) {
     place-items: center;
