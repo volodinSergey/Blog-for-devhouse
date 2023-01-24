@@ -66,7 +66,7 @@ export default {
 $font-size-base: rem(20);
 
 $color-border: #23243e;
-$bgColor-options-list: #8267b50a;
+$bgColor-options-list: rgb(47 28 82);
 $bgColor-title: #8267b50a;
 $color-active-option: #230042;
 
