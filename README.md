@@ -1,6 +1,6 @@
-# Blog for devHouse school 
+# Vue blog
 
-This is the final project for DevHouse school I am going through. The project is dedicated to creating not a big blog using Vue js.
+The project is dedicated to creating not a big blog using Vue js.
 
 Technologies I am using here:
 
